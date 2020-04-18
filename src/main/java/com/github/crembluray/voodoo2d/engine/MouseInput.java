@@ -21,7 +21,7 @@ public class MouseInput {
 
     public MouseInput() {
         previousPos = new Vector2d(-1, -1);
-        currentPos= new Vector2d(0, 0);
+        currentPos = new Vector2d(0, 0);
         displVec = new Vector2f();
     }
 
@@ -31,7 +31,7 @@ public class MouseInput {
             currentPos.y = ypos;
         });
         glfwSetCursorEnterCallback(window.getWindowHandle(), (windowHandle, entered) -> {
-           inWindow = entered;
+            inWindow = entered;
         });
         glfwSetMouseButtonCallback(window.getWindowHandle(), (windowHandle, button, action, mode) -> {
             leftButtonPressed = button == GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS;
@@ -43,23 +43,19 @@ public class MouseInput {
         return displVec;
     }
 
-    public Vector2d getCurrentPos() {
-        return currentPos;
-    }
-
     public void input(Window window) {
         displVec.x = 0;
         displVec.y = 0;
-        if(previousPos.x > 0 && previousPos.y > 0 && inWindow) {
-            double deltaX = currentPos.x - previousPos.x;
-            double deltaY = currentPos.y - previousPos.y;
-            boolean rotateX = deltaX != 0;
-            boolean rotateY = deltaY != 0;
-            if(rotateX) {
-                displVec.y = (float) deltaX;
+        if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {
+            double deltax = currentPos.x - previousPos.x;
+            double deltay = currentPos.y - previousPos.y;
+            boolean rotateX = deltax != 0;
+            boolean rotateY = deltay != 0;
+            if (rotateX) {
+                displVec.y = (float) deltax;
             }
-            if(rotateY) {
-                displVec.x = (float) deltaY;
+            if (rotateY) {
+                displVec.x = (float) deltay;
             }
         }
         previousPos.x = currentPos.x;

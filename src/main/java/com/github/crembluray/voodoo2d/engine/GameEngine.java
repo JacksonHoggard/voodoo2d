@@ -1,18 +1,18 @@
 package com.github.crembluray.voodoo2d.engine;
 
-public class GameEngine {
+public class GameEngine implements Runnable {
 
     public static final int TARGET_FPS = 75;
 
     public static final int TARGET_UPS = 30;
 
-    private final Timer timer;
-
     private final Window window;
 
-    private final IGameLogic gameLogic;
+    private final Timer timer;
 
     public final MouseInput mouseInput;
+
+    private final IGameLogic gameLogic;
 
     private String windowTitle;
 
@@ -20,24 +20,25 @@ public class GameEngine {
 
     private int fps;
 
-    public GameEngine(String title, boolean vSync, int width, int height, IGameLogic gameLogic) {
-        window = new Window(title, width, height, vSync);
+    public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
+        window = new Window(windowTitle, width, height, vSync);
+        this.gameLogic = gameLogic;
+        this.windowTitle = windowTitle;
         timer = new Timer();
         mouseInput = new MouseInput();
-        this.gameLogic = gameLogic;
-        this.windowTitle = title;
     }
 
-    public GameEngine(String title, boolean vSync, IGameLogic gameLogic) {
-        this(title, vSync, 0, 0, gameLogic);
+    public GameEngine(String windowTitle, boolean vSync, IGameLogic gameLogic) throws Exception {
+        this(windowTitle, 0, 0, vSync, gameLogic);
     }
 
+    @Override
     public void run() {
-        try{
+        try {
             init();
             gameLoop();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception excp) {
+            excp.printStackTrace();
         } finally {
             cleanup();
         }
@@ -57,27 +58,24 @@ public class GameEngine {
         float accumulator = 0f;
         float interval = 1f / TARGET_UPS;
 
-        while(!window.windowShouldClose()) {
+        boolean running = true;
+        while (running && !window.windowShouldClose()) {
             elapsedTime = timer.getElapsedTime();
             accumulator += elapsedTime;
 
             input();
 
-            while(accumulator >= interval) {
+            while (accumulator >= interval) {
                 update(interval);
                 accumulator -= interval;
             }
 
             render();
 
-            if(!window.isvSync()) {
+            if (!window.isvSync()) {
                 sync();
             }
         }
-    }
-
-    protected void update(float interval) {
-        gameLogic.update(interval, mouseInput, window);
     }
 
     protected void cleanup() {
@@ -87,13 +85,21 @@ public class GameEngine {
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
-        while(timer.getTime() < endTime) {
+        while (timer.getTime() < endTime) {
             try {
                 Thread.sleep(1);
-            } catch(InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException ie) {
             }
         }
+    }
+
+    protected void input() {
+        mouseInput.input(window);
+        gameLogic.input(window, mouseInput);
+    }
+
+    protected void update(float interval) {
+        gameLogic.update(interval, mouseInput);
     }
 
     protected void render() {
@@ -103,14 +109,7 @@ public class GameEngine {
             fps = 0;
         }
         fps++;
-        window.clear();
         gameLogic.render(window);
         window.update();
     }
-
-    protected void input() {
-        mouseInput.input(window);
-        gameLogic.input(window, mouseInput);
-    }
-
 }
