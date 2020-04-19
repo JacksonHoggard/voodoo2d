@@ -1,4 +1,4 @@
-package com.github.crembluray.voodoo2d.engine.graph;
+package com.github.crembluray.voodoo2d.engine.graphic;
 
 import org.lwjgl.system.MemoryUtil;
 
@@ -32,14 +32,17 @@ public class Mesh {
 
     private final int vertexCount;
 
-    private final Texture texture;
+    private final SpriteSheet spriteSheet;
 
-    public Mesh(float[] positions, float[] textCoords, int[] indices, Texture texture) {
+    private int currentSprite;
+
+    public Mesh(float[] positions, float[] textCoords, int[] indices, SpriteSheet spriteSheet) {
         FloatBuffer posBuffer = null;
         FloatBuffer textCoordsBuffer = null;
         IntBuffer indicesBuffer = null;
         try {
-            this.texture = texture;
+            this.spriteSheet = spriteSheet;
+            currentSprite = 0;
             vertexCount = indices.length;
             vboIdList = new ArrayList<>();
 
@@ -101,7 +104,7 @@ public class Mesh {
         // Activate firs texture bank
         glActiveTexture(GL_TEXTURE0);
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, texture.getId());
+        glBindTexture(GL_TEXTURE_2D, spriteSheet.getTextures()[currentSprite].getId());
 
         // Draw the mesh
         glBindVertexArray(getVaoId());
@@ -122,10 +125,24 @@ public class Mesh {
         }
 
         // Delete the texture
-        texture.cleanup();
+        for(Texture t : spriteSheet.getTextures()) {
+            t.cleanup();
+        }
 
         // Delete the VAO
         glBindVertexArray(0);
         glDeleteVertexArrays(vaoId);
+    }
+
+    public SpriteSheet getSpriteSheet() {
+        return spriteSheet;
+    }
+
+    public int getCurrentSprite() {
+        return currentSprite;
+    }
+
+    public void setCurrentSprite(int currentSprite) {
+        this.currentSprite = currentSprite;
     }
 }

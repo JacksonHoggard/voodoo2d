@@ -1,10 +1,15 @@
-package com.github.crembluray.voodoo2d.engine.graph;
+package com.github.crembluray.voodoo2d.engine.graphic;
 
 import org.lwjgl.system.MemoryStack;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import static com.github.crembluray.voodoo2d.engine.Utils.toByteArrayAutoClosable;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
@@ -69,6 +74,24 @@ public class Texture {
         stbi_image_free(buf);
 
         return textureId;
+    }
+
+    public static Texture[] loadTexture(BufferedImage[] sprites) throws Exception {
+        Texture[] temp = new Texture[sprites.length];
+
+        File tempDir = new File("temp");
+        tempDir.mkdir();
+
+        for(int i = 0; i < sprites.length; i++) {
+
+            ImageIO.write(sprites[i], "PNG", new File("temp/tmpFile" + i + ".png"));
+
+            temp[i] = new Texture(loadTexture("temp/tmpFile" + i + ".png"));
+
+            File file = new File("temp/tmpFile" + i + ".png");
+            file.delete();
+        }
+        return temp;
     }
 
     public void cleanup() {

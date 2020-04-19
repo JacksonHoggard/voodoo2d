@@ -11,8 +11,8 @@ public class Main {
             IGameLogic gameLogic = new Game();
             GameEngine gameEng = new GameEngine("V2D", vSync, gameLogic);
             gameEng.run();
-        } catch (Exception excp) {
-            excp.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             System.exit(-1);
         }
     }

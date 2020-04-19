@@ -1,6 +1,6 @@
 package com.github.crembluray.voodoo2d.engine;
 
-import com.github.crembluray.voodoo2d.engine.graph.Mesh;
+import com.github.crembluray.voodoo2d.engine.graphic.Mesh;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
