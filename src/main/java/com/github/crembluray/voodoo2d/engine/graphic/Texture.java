@@ -91,6 +91,7 @@ public class Texture {
             File file = new File("temp/tmpFile" + i + ".png");
             file.delete();
         }
+        tempDir.delete();
         return temp;
     }
 

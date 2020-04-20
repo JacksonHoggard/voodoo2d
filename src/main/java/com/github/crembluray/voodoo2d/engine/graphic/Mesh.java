@@ -92,6 +92,27 @@ public class Mesh {
         }
     }
 
+    public static Mesh loadMesh(String filename, int size) {
+        return new Mesh(
+                new float[]{ // positions
+                    -0.5f,  0.5f, 0.0f,
+                    -0.5f, -0.5f, 0.0f,
+                    0.5f, -0.5f, 0.0f,
+                    0.5f,  0.5f, 0.0f,
+                },
+                new float[]{ // text coordinates
+                    0.0f, 0.0f,
+                    0.0f, 1.0f,
+                    1.0f, 1.0f,
+                   1.0f, 0.0f,
+                },
+                new int[]{
+                    0, 1, 3, 3, 1, 2,
+                },
+                new SpriteSheet(filename, size)
+        );
+    }
+
     public int getVaoId() {
         return vaoId;
     }

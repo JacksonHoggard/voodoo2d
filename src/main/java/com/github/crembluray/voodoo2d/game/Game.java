@@ -33,41 +33,7 @@ public class Game implements IGameLogic {
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
-        // Create the Mesh
-        float[] positions = new float[]{
-                // V0
-                -0.5f, 0.5f, 0.5f,
-                // V1
-                -0.5f, -0.5f, 0.5f,
-                // V2
-                0.5f, -0.5f, 0.5f,
-                // V3
-                0.5f, 0.5f, 0.5f,
-                // V4
-                -0.5f, 0.5f, -0.5f,
-                // V5
-                0.5f, 0.5f, -0.5f,
-                // V6
-                -0.5f, -0.5f, -0.5f,
-                // V7
-                0.5f, -0.5f, -0.5f,
-        };
-        float[] textCoords = new float[]{
-                0.0f, 0.0f,
-                0.0f, 0.5f,
-                0.5f, 0.5f,
-                0.5f, 0.0f,
-
-                0.0f, 0.0f,
-                0.5f, 0.0f,
-                0.0f, 0.5f,
-                0.5f, 0.5f,
-        };
-        int[] indices = new int[]{
-            0, 1, 3, 3, 1, 2,
-        };
-        SpriteSheet spriteSheet = new SpriteSheet("textures/img.png", 128);
-        mesh = new Mesh(positions, textCoords, indices, spriteSheet);
+        mesh = Mesh.loadMesh("textures/img.png", 64);
         GameObject gameObject = new GameObject(mesh);
         gameObject.setPosition(0, 0);
         gameObjects = new GameObject[] {gameObject};
