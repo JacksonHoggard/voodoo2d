@@ -1,5 +1,7 @@
 package com.github.crembluray.voodoo2d.engine;
 
+import com.github.crembluray.voodoo2d.engine.animation.AnimationManager;
+
 public class GameEngine implements Runnable {
 
     public static final int TARGET_FPS = 75;
@@ -10,11 +12,13 @@ public class GameEngine implements Runnable {
 
     private final Timer timer;
 
-    public final MouseInput mouseInput;
+    private final MouseInput mouseInput;
+
+    private final AnimationManager animationManager;
 
     private final IGameLogic gameLogic;
 
-    private String windowTitle;
+    private final String windowTitle;
 
     private double lastFps;
 
@@ -26,6 +30,7 @@ public class GameEngine implements Runnable {
         this.windowTitle = windowTitle;
         timer = new Timer();
         mouseInput = new MouseInput();
+        animationManager = new AnimationManager();
     }
 
     public GameEngine(String windowTitle, boolean vSync, IGameLogic gameLogic) throws Exception {
@@ -99,6 +104,7 @@ public class GameEngine implements Runnable {
     }
 
     protected void update(float interval) {
+        animationManager.playAnimations(timer.getTime());
         gameLogic.update(interval, mouseInput);
     }
 

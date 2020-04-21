@@ -1,8 +1,11 @@
 package com.github.crembluray.voodoo2d.engine;
 
+import com.github.crembluray.voodoo2d.engine.animation.Animation;
 import com.github.crembluray.voodoo2d.engine.graphic.Mesh;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+
+import java.util.ArrayList;
 
 public class GameObject {
 
@@ -14,8 +17,11 @@ public class GameObject {
 
     private final Vector3f rotation;
 
+    private ArrayList<Animation> animations;
+
     public GameObject(Mesh mesh) {
         this.mesh = mesh;
+        animations = new ArrayList<Animation>();
         position = new Vector2f();
         scale = 1;
         rotation = new Vector3f();
@@ -50,5 +56,13 @@ public class GameObject {
     
     public Mesh getMesh() {
         return mesh;
+    }
+
+    public ArrayList<Animation> getAnimations() {
+        return animations;
+    }
+
+    public void setAnimations(ArrayList<Animation> animations) {
+        this.animations = animations;
     }
 }

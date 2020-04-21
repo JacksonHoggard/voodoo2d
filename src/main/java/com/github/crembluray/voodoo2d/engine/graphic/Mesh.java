@@ -34,7 +34,7 @@ public class Mesh {
 
     private final SpriteSheet spriteSheet;
 
-    private int currentSprite;
+    private int currentFrame;
 
     public Mesh(float[] positions, float[] textCoords, int[] indices, SpriteSheet spriteSheet) {
         FloatBuffer posBuffer = null;
@@ -42,7 +42,7 @@ public class Mesh {
         IntBuffer indicesBuffer = null;
         try {
             this.spriteSheet = spriteSheet;
-            currentSprite = 0;
+            currentFrame = 0;
             vertexCount = indices.length;
             vboIdList = new ArrayList<>();
 
@@ -125,7 +125,7 @@ public class Mesh {
         // Activate firs texture bank
         glActiveTexture(GL_TEXTURE0);
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, spriteSheet.getTextures()[currentSprite].getId());
+        glBindTexture(GL_TEXTURE_2D, spriteSheet.getTextures()[currentFrame].getId());
 
         // Draw the mesh
         glBindVertexArray(getVaoId());
@@ -159,11 +159,11 @@ public class Mesh {
         return spriteSheet;
     }
 
-    public int getCurrentSprite() {
-        return currentSprite;
+    public int getCurrentFrame() {
+        return currentFrame;
     }
 
-    public void setCurrentSprite(int currentSprite) {
-        this.currentSprite = currentSprite;
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
     }
 }

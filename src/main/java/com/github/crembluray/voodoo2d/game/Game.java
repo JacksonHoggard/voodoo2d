@@ -1,8 +1,9 @@
 package com.github.crembluray.voodoo2d.game;
 
 import com.github.crembluray.voodoo2d.engine.*;
+import com.github.crembluray.voodoo2d.engine.animation.Animation;
+import com.github.crembluray.voodoo2d.engine.animation.AnimationManager;
 import com.github.crembluray.voodoo2d.engine.graphic.Mesh;
-import com.github.crembluray.voodoo2d.engine.graphic.SpriteSheet;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,7 +20,9 @@ public class Game implements IGameLogic {
 
     private Mesh mesh;
 
-    private int spriteStep;
+    private Animation[] animations;
+
+    private int lastKey;
 
     public static final float CAMERA_POS_STEP = 0.05f;
 
@@ -27,38 +30,56 @@ public class Game implements IGameLogic {
         renderer = new Renderer();
         camera = new Camera();
         cameraInc = new Vector2f();
-        spriteStep = 0;
+        animations = new Animation[0];
+        lastKey = GLFW_KEY_S;
     }
 
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
-        mesh = Mesh.loadMesh("textures/img.png", 64);
+        mesh = Mesh.loadMesh("textures/player.png", 64);
         GameObject gameObject = new GameObject(mesh);
-        gameObject.setPosition(0, 0);
+        gameObject.setScale(0.2f);
+        Animation runDown = new Animation(gameObject, 0, 3, 6);
+        Animation runLeft = new Animation(gameObject, 4, 7, 6);
+        Animation runRight = new Animation(gameObject, 8, 11, 6);
+        Animation runUp = new Animation(gameObject, 12, 15, 6);
+        animations = new Animation[]{runDown, runLeft, runRight, runUp};
         gameObjects = new GameObject[] {gameObject};
     }
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
         cameraInc.set(0, 0);
-        if (window.isKeyPressed(GLFW_KEY_W)) {
+        if(window.isKeyPressed(GLFW_KEY_S)) {
+            animations[0].play();
             cameraInc.y = 1;
-        } else if (window.isKeyPressed(GLFW_KEY_S)) {
-            cameraInc.y = -1;
-        }
-        if (window.isKeyPressed(GLFW_KEY_A)) {
-            cameraInc.x = -1;
-        } else if (window.isKeyPressed(GLFW_KEY_D)) {
+            lastKey = GLFW_KEY_S;
+        } else if(lastKey == GLFW_KEY_S)
+            animations[0].stop();
+        if(window.isKeyPressed(GLFW_KEY_A)) {
+            animations[1].play();
             cameraInc.x = 1;
-        }
-        if(window.isKeyPressed(GLFW_KEY_SPACE)) {
-            if(mesh.getSpriteSheet().getTextures().length - 1 == spriteStep) {
-                spriteStep = 0;
-            } else {
-                spriteStep++;
-            }
-            mesh.setCurrentSprite(spriteStep);
+            lastKey = GLFW_KEY_A;
+        } else if(lastKey == GLFW_KEY_A)
+            animations[1].stop();
+        if(window.isKeyPressed(GLFW_KEY_D)) {
+            animations[2].play();
+            cameraInc.x = -1;
+            lastKey = GLFW_KEY_D;
+        } else if(lastKey == GLFW_KEY_D)
+            animations[2].stop();
+        if(window.isKeyPressed(GLFW_KEY_W)) {
+            animations[3].play();
+            cameraInc.y = -1;
+            lastKey = GLFW_KEY_W;
+        } else if(lastKey == GLFW_KEY_W)
+            animations[3].stop();
+        if(!window.isKeyPressed(GLFW_KEY_W) &&
+           !window.isKeyPressed(GLFW_KEY_A) &&
+           !window.isKeyPressed(GLFW_KEY_S) &&
+           !window.isKeyPressed(GLFW_KEY_D)) {
+            for(Animation a : animations) a.pause();
         }
     }
 
