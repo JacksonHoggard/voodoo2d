@@ -30,7 +30,7 @@ aabb.setMax(1.0f, 0.175f); // Set the top right point of the boundary
 ```
 
 ### CONTRIBUTING
-If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/CremBluRay/voodoo2d/CONTRIBUTING.md) or read the [wiki page](https://github.com/CremBluRay/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
+If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/CremBluRay/voodoo2d/blob/master/CONTRIBUTING.md) or read the [wiki page](https://github.com/CremBluRay/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
 
 ### TROUBLESHOOTING
 **A game object is not drawing to the screen!**
