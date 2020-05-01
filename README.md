@@ -1,28 +1,32 @@
-![Voodoo 2D](https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/voodoo2d.png)
-# Voodoo 2D
-A lightweight engine to quickly build complex cross-platform 2D games in Java.
+<p align="center">
+    <img width="100" height="100" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/voodoo2d.png">
+</p>
 
-![Voodoo 2D Canvas](https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/canvas.gif)
+# Voodoo 2D
+A lightweight engine to easily build complex cross-platform 2D games in Java.
+<p align="center">
+    <img width="800" height="600" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/canvas.gif">
+</p>
 
 Code:
-```genericsql
-Mesh mesh = Mesh.loadMesh("textures/player.png", 64); -- Create new mesh with size of 64x64 pixels
-GameObject gameObject = new GameObject(mesh); -- Makes a new gameObject from mesh
-Animation run = new Animation(gameObject, 0, 3, 6); -- Creates new animation with frames 0 - 3 at 6 fps
-run.play(); -- Play the animation!
+```java
+Mesh mesh = Mesh.loadMesh("textures/player.png", 64); // Create new mesh with size of 64x64 pixels
+GameObject gameObject = new GameObject(mesh); // Makes a new gameObject from mesh
+Animation run = new Animation(gameObject, 0, 3, 6); // Creates new animation with frames 0 - 3 at 6 fps
+run.play(); // Play the animation!
 ```
 
 ##### INPUT
-```genericsql
-if(window.isKeyPressed(GLFW_KEY_D)) { -- Checks if "D" key is down
-    run.play(); -- Plays our animation!
+```java
+if(window.isKeyPressed(GLFW_KEY_D)) { // Checks if "D" key is down
+    run.play(); // Plays our animation!
 ```
 
 ##### COLLISION
-```genericsql
-aabb = new AABB(); -- Make a new collision box
-aabb.setMin(0.0f, 0.0f); -- Set the bottom left point of the boundary
-aabb.setMax(1.0f, 0.175f); -- Set the top right point of the boundary
+```java
+aabb = new AABB(); // Make a new collision box
+aabb.setMin(0.0f, 0.0f); // Set the bottom left point of the boundary
+aabb.setMax(1.0f, 0.175f); // Set the top right point of the boundary
 ```
 
 ### TROUBLESHOOTING
