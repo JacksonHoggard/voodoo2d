@@ -1,6 +1,6 @@
 package com.github.crembluray.voodoo2d.engine.animation;
 
-import com.github.crembluray.voodoo2d.engine.GameObject;
+import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 
 public class Animation {
 
@@ -10,7 +10,7 @@ public class Animation {
 
     private int currentFrame;
 
-    private final GameObject gameObject;
+    private final GameObject parent;
 
     private int rate;
 
@@ -18,8 +18,8 @@ public class Animation {
 
     private boolean play;
 
-    public Animation(GameObject gameObject, int firstFrame, int lastFrame, int rate) {
-        this.gameObject = gameObject;
+    public Animation(GameObject parent, int firstFrame, int lastFrame, int rate) {
+        this.parent = parent;
         this.firstFrame = firstFrame;
         this.lastFrame = lastFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
@@ -33,7 +33,7 @@ public class Animation {
         if(currentFrame == frames.length) {
             currentFrame = 0;
         }
-        gameObject.getMesh().setCurrentFrame(currentFrame + firstFrame);
+        parent.getMesh().setCurrentFrame(currentFrame + firstFrame);
         timesRun++;
     }
 
@@ -48,7 +48,7 @@ public class Animation {
 
     public void stop() {
         play = false;
-        gameObject.getMesh().setCurrentFrame(firstFrame);
+        parent.getMesh().setCurrentFrame(firstFrame);
         timesRun = 0;
     }
 
@@ -78,5 +78,9 @@ public class Animation {
 
     protected void reset() {
         timesRun = 0;
+    }
+
+    protected GameObject getParent() {
+        return parent;
     }
 }

@@ -1,4 +1,4 @@
-package com.github.crembluray.voodoo2d.engine;
+package com.github.crembluray.voodoo2d.engine.gameObject;
 
 import com.github.crembluray.voodoo2d.engine.animation.Animation;
 import com.github.crembluray.voodoo2d.engine.graphic.Mesh;
@@ -53,7 +53,7 @@ public class GameObject {
         this.rotation.y = y;
         this.rotation.z = z;
     }
-    
+
     public Mesh getMesh() {
         return mesh;
     }

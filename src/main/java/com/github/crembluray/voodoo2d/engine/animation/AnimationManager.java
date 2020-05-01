@@ -24,10 +24,15 @@ public class AnimationManager {
             elapsedTime = 0;
             for(Animation a : animations) a.reset();
         }
-        for(Animation a : animations) {
-            if(elapsedTime > (1.0d / a.getRate()) * a.getTimesRun()) {
-                if(a.isPlaying())
-                    a.run();
+        for(int i = 0; i < animations.size(); i++) {
+            if(animations.get(i).isPlaying())
+                if(elapsedTime > (1.0d / animations.get(i).getRate()) * animations.get(i).getTimesRun()) {
+                        for(int j = 0; j < animations.size(); j++)
+                            if(i != j) {
+                                if(animations.get(i).getParent() == animations.get(j).getParent())
+                                    animations.get(j).stop();
+                            }
+                animations.get(i).run();
             }
         }
         if(elapsedTime >= 1.0d) {

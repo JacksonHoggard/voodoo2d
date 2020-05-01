@@ -1,7 +1,7 @@
 package com.github.crembluray.voodoo2d.engine.graph;
 
 import com.github.crembluray.voodoo2d.engine.Camera;
-import com.github.crembluray.voodoo2d.engine.GameObject;
+import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

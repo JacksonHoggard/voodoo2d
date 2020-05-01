@@ -9,3 +9,4 @@ bin/apps/
 .settings
 .idea
 *.iml
+dependency-reduced-pom.xml

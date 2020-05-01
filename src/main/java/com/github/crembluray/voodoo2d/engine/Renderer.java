@@ -1,9 +1,6 @@
-package com.github.crembluray.voodoo2d.game;
+package com.github.crembluray.voodoo2d.engine;
 
-import com.github.crembluray.voodoo2d.engine.Camera;
-import com.github.crembluray.voodoo2d.engine.GameObject;
-import com.github.crembluray.voodoo2d.engine.Utils;
-import com.github.crembluray.voodoo2d.engine.Window;
+import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 import com.github.crembluray.voodoo2d.engine.graph.ShaderProgram;
 import com.github.crembluray.voodoo2d.engine.graph.Transformation;
 import org.joml.Matrix4f;
@@ -69,7 +66,7 @@ public class Renderer {
             // Set model view matrix for this item
             Matrix4f modelViewMatrix = transformation.getModelViewMatrix(gameObject, viewMatrix);
             shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
-            // Render the mes for this game item
+            // Render the mesh for this game item
             gameObject.getMesh().render();
         }
 
