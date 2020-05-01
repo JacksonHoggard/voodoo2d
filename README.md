@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="100" height="100" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/voodoo2d.png">
+    <img width="150" height="150" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/voodoo2d.png">
 </p>
 
 # Voodoo 2D
@@ -28,6 +28,9 @@ aabb = new AABB(); // Make a new collision box
 aabb.setMin(0.0f, 0.0f); // Set the bottom left point of the boundary
 aabb.setMax(1.0f, 0.175f); // Set the top right point of the boundary
 ```
+
+### CONTRIBUTING
+If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/CremBluRay/voodoo2d/CONTRIBUTING.md) or read the [wiki page](https://github.com/CremBluRay/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
 
 ### TROUBLESHOOTING
 **A game object is not drawing to the screen!**
