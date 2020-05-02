@@ -21,13 +21,16 @@ public class Window {
     private boolean vSync;
 
     private boolean resized;
+    
+    private boolean antiAliasing ;
 
-    public Window(String title, int width, int height, boolean vSync) {
+	public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
         this.resized = false;
+        this.antiAliasing = true;
     }
 
     public void init() {
@@ -108,7 +111,10 @@ public class Window {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // Antialiasing
-        // TODO
+        if (hasAntiAliasing()) {
+        	//enable antialiasing
+        	glfwWindowHint(GLFW_SAMPLES, 4);
+        }
     }
 
     public void setClearColor(float r, float g, float b, float alpha) {
@@ -163,4 +169,12 @@ public class Window {
     public int getHeight() {
         return height;
     }
+    
+    public boolean hasAntiAliasing() {
+		return antiAliasing;
+	}
+
+	public void setAntiAliasing(boolean antiAliasing) {
+		this.antiAliasing = antiAliasing;
+	}
 }
