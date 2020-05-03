@@ -2,6 +2,8 @@ package com.github.crembluray.voodoo2d.game;
 
 import com.github.crembluray.voodoo2d.engine.*;
 import com.github.crembluray.voodoo2d.engine.animation.Animation;
+import com.github.crembluray.voodoo2d.engine.audio.AudioManager;
+import com.github.crembluray.voodoo2d.engine.audio.AudioSource;
 import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 import com.github.crembluray.voodoo2d.engine.graphic.Mesh;
 import org.joml.Vector2f;
@@ -20,6 +22,8 @@ public class Game implements IGameLogic {
 
     private Animation[] animations;
 
+    private AudioSource audioSource;
+
     //public static final float CAMERA_POS_STEP = 0.05f;
 
     public Game() {
@@ -32,6 +36,9 @@ public class Game implements IGameLogic {
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
+        AudioManager.init();
+        audioSource = new AudioSource("audio/bounce.ogg");
+        audioSource.setLooping(true);
         Mesh mesh = Mesh.loadMesh("textures/player.png", 64);
         Mesh mesh1 = Mesh.loadMesh("textures/sheet1.png", 32);
         GameObject gameObject1 = new GameObject(mesh1);
@@ -66,6 +73,13 @@ public class Game implements IGameLogic {
             animations[3].play();
             cameraInc.y = -1;
         }
+        if(window.isKeyPressed(GLFW_KEY_SPACE)) {
+            if(audioSource.isPlaying()) {
+                audioSource.stop();
+            } else {
+                audioSource.play();
+            }
+        }
     }
 
     @Override
@@ -85,6 +99,7 @@ public class Game implements IGameLogic {
         for (GameObject gameObject : gameObjects) {
             gameObject.getMesh().cleanUp();
         }
+        AudioManager.cleanup();
     }
 
 }
