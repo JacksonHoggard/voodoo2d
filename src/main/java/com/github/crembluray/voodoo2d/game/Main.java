@@ -7,9 +7,9 @@ public class Main {
  
     public static void main(String[] args) {
         try {
-            boolean vSync = true;
+            boolean vSync = true, antiAliasing = true;
             IGameLogic gameLogic = new Game();
-            GameEngine gameEng = new GameEngine("V2D", vSync, gameLogic);
+            GameEngine gameEng = new GameEngine("V2D", vSync, antiAliasing, gameLogic);
             gameEng.run();
         } catch (Exception e) {
             e.printStackTrace();
