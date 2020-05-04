@@ -24,13 +24,13 @@ public class Window {
     
     private boolean antiAliasing ;
 
-	public Window(String title, int width, int height, boolean vSync) {
+	public Window(String title, int width, int height, boolean vSync, boolean antiAliasing) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
         this.resized = false;
-        this.antiAliasing = true;
+        this.antiAliasing = antiAliasing;
     }
 
     public void init() {
