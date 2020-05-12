@@ -39,8 +39,8 @@ public class Game implements IGameLogic {
         AudioManager.init();
         audioSource = new AudioSource("audio/bounce.ogg");
         audioSource.setLooping(true);
-        Mesh mesh = Mesh.loadMesh("textures/player.png", 64);
-        Mesh mesh1 = Mesh.loadMesh("textures/sheet1.png", 32);
+        Mesh mesh = Mesh.loadMesh("textures/player.png");
+        Mesh mesh1 = Mesh.loadMesh("textures/sheet1.png");
         GameObject gameObject1 = new GameObject(mesh1);
         GameObject gameObject = new GameObject(mesh);
         gameObject.setScale(0.2f);

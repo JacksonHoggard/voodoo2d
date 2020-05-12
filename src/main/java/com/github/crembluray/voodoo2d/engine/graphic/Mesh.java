@@ -92,7 +92,7 @@ public class Mesh {
         }
     }
 
-    public static Mesh loadMesh(String filename, int size) {
+    public static Mesh loadMesh(String filename) {
         return new Mesh(
                 new float[]{ // positions
                     -0.5f,  0.5f, 0.0f,
@@ -109,7 +109,7 @@ public class Mesh {
                 new int[]{
                     0, 1, 3, 3, 1, 2,
                 },
-                new SpriteSheet(filename, size)
+                new SpriteSheet(filename)
         );
     }
 
