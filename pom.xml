@@ -15,6 +15,14 @@
         <maven.compiler.source>11</maven.compiler.source>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/CremBluRay/voodoo2d</url>
+        </repository>
+    </distributionManagement>
+
     <profiles>
         <profile>
             <id>lwjgl-natives-linux-amd64</id>
