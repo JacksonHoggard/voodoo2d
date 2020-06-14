@@ -4,54 +4,47 @@ import org.joml.Vector2f;
 
 public class AABB {
 
-    private final Vector2f min, max, position;
+    /**
+     * The bounding box of the object is defined by two vectors.
+     * @param center is a 2D coordinate marking the center of the bounding box.
+     * @param distance is a pair of values representing the distance between the edges and the center of the bounding box.
+     */
+    private Vector2f center, distance;
 
-    public AABB() {
-        min = new Vector2f();
-        max = new Vector2f();
-        position = new Vector2f();
+    public AABB(){
+        center = new Vector2f();
+        distance = new Vector2f();
     }
 
-    public boolean collides(AABB other) {
-        if(max.x + position.x < other.min.x + other.position.x || min.x + position.x > other.getMax().x + other.position.x)
-            return false;
-        if(max.y + position.y < other.min.y + other.position.y || min.y + position.y > other.getMax().y + other.position.y)
-            return false;
-        return true;
+    public AABB(final Vector2f center, final Vector2f distance){
+        this.center = center;
+        this.distance = distance;
     }
 
-    public Vector2f getMin() {
-        return min;
+    /**
+     * This method determines whether or not a given AABB collides with this AABB.
+     * @param other This is the target of the collision check.
+     * @return boolean Whether or not a collision has occurred.
+     */
+    public boolean intersects(final AABB other) {
+        return (( Math.abs(center.x - other.center.x) < distance.x + other.distance.x) ||
+                ( Math.abs(center.y - other.center.y) < distance.y + other.distance.y));
     }
 
-    public Vector2f getMax() {
-        return max;
+    //Getter & Setter methods
+    public Vector2f getCenter(){
+        return center;
     }
 
-    public void setMin(float x, float y) {
-        min.x = x;
-        min.y = y;
+    public void setCenter(final Vector2f center) {
+        this.center = center;
     }
 
-    public void setMax(float x, float y) {
-        max.x = x;
-        max.y = y;
+    public Vector2f getDistance() {
+        return distance;
     }
 
-    public float getHeight() {
-        return max.y;
-    }
-
-    public float getWidth() {
-        return max.x;
-    }
-
-    public Vector2f getPosition() {
-        return position;
-    }
-
-    public void setPosition(float x, float y) {
-        position.x = x;
-        position.y = y;
+    public void setDistance(final Vector2f distance) {
+        this.distance = distance;
     }
 }
