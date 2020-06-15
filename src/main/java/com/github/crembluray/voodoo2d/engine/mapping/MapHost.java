@@ -51,4 +51,7 @@ public class MapHost {
             e.printStackTrace();
         }
     }
+    public ArrayList<TileSet> getTileSets(){
+        return tileSets;
+    }
 }
