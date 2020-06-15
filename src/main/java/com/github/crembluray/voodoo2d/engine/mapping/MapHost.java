@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
+// The MapHost class exists as a means of loading TMX files into the working memory of the program.
 public class MapHost {
     private String tmxTarget;
     private NodeList rawTileData;
