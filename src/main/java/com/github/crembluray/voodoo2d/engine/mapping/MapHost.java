@@ -19,7 +19,6 @@ public class MapHost {
 
     public MapHost(String tmxTarget){
         this.tmxTarget = tmxTarget;
-        xmlLoad();
     }
 
     /**
