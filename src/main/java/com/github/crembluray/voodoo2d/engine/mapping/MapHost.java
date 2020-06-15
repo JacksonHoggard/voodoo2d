@@ -25,7 +25,7 @@ public class MapHost {
      * This method populates the variables used to render the map.
      * @throws Exception if a bad tmx path is given, or if the tmx is malformed.
      */
-    public void xmlLoad(){
+    public void init(){
         try{
             // Load the xml file as a document. 
             File in = new File(tmxTarget);
