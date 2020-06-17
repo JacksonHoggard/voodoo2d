@@ -1,6 +1,7 @@
 package com.github.crembluray.voodoo2d.engine;
 
 import com.github.crembluray.voodoo2d.engine.animation.AnimationManager;
+import com.github.crembluray.voodoo2d.engine.mapping.MapHost;
 
 public class GameEngine implements Runnable {
 
@@ -24,6 +25,8 @@ public class GameEngine implements Runnable {
 
     private int fps;
 
+    private MapHost map = new MapHost("src\\main\\resources\\maps\\example\\example.tmx");
+    
     public GameEngine(String windowTitle, int width, int height, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
         window = new Window(windowTitle, width, height, vSync, antiAliasing);
         this.gameLogic = gameLogic;
@@ -52,6 +55,7 @@ public class GameEngine implements Runnable {
     protected void init() throws Exception {
         window.init();
         timer.init();
+        map.init();
         mouseInput.init(window);
         gameLogic.init(window);
         lastFps = timer.getTime();
