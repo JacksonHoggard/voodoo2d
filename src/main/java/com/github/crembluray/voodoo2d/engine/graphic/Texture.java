@@ -76,7 +76,7 @@ public class Texture {
         return textureId;
     }
 
-    public static Texture[] loadTexture(BufferedImage[] sprites) throws Exception {
+    protected static Texture[] loadTexture(BufferedImage[] sprites) throws Exception {
         Texture[] temp = new Texture[sprites.length];
 
         File tempDir = new File("temp");

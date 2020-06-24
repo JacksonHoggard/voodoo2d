@@ -1,7 +1,11 @@
 package com.github.crembluray.voodoo2d.engine.graphic;
 
+import org.joml.Vector2f;
 import org.lwjgl.system.MemoryUtil;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -34,13 +38,23 @@ public class Mesh {
 
     private final SpriteSheet spriteSheet;
 
+    private Texture texture;
+
+    private final boolean hasSpriteSheet;
+
     private int currentFrame;
+
+    public Mesh(float[] positions, float[] textCoords, int[] indices, Texture texture) {
+        this(positions, textCoords, indices, (SpriteSheet) null);
+        this.texture = texture;
+    }
 
     public Mesh(float[] positions, float[] textCoords, int[] indices, SpriteSheet spriteSheet) {
         FloatBuffer posBuffer = null;
         FloatBuffer textCoordsBuffer = null;
         IntBuffer indicesBuffer = null;
         try {
+            hasSpriteSheet = spriteSheet != null;
             this.spriteSheet = spriteSheet;
             currentFrame = 0;
             vertexCount = indices.length;
@@ -113,13 +127,29 @@ public class Mesh {
         );
     }
 
-    public static Mesh loadMesh(String filename) {
+    public static Mesh loadMesh(String filename) throws Exception {
+        BufferedImage tmp = ImageIO.read(new File(filename));
+        Vector2f topRight, bottomRight, bottomLeft;
+        if(tmp.getWidth() > tmp.getHeight()) {
+            topRight = new Vector2f(0.25f + (1f / tmp.getWidth()), 0.5f);
+            bottomLeft = new Vector2f(-0.5f, -((1f / tmp.getHeight()) * 2));
+            bottomRight = new Vector2f(topRight.x, bottomLeft.y);
+        } else {
+            topRight = new Vector2f((1f / tmp.getWidth()), 0.5f);
+            bottomLeft = new Vector2f(-0.5f, -0.5f);
+            bottomRight = new Vector2f(topRight.x, -0.5f);
+        }
+        if(tmp.getWidth() == tmp.getHeight()) {
+            topRight = new Vector2f(0.5f, 0.5f);
+            bottomLeft = new Vector2f(-0.5f, -0.5f);
+            bottomRight = new Vector2f(0.5f, -0.5f);
+        }
         return new Mesh(
                 new float[]{ // positions
                     -0.5f,  0.5f, 0.0f,
-                    -0.5f, -0.5f, 0.0f,
-                    0.5f, -0.5f, 0.0f,
-                    0.5f,  0.5f, 0.0f,
+                    bottomLeft.x, bottomLeft.y, 0.0f,
+                    bottomRight.x, bottomRight.y, 0.0f,
+                    topRight.x,  topRight.y, 0.0f,
                 },
                 new float[]{ // text coordinates
                     0.0f, 0.0f,
@@ -130,7 +160,7 @@ public class Mesh {
                 new int[]{
                     0, 1, 3, 3, 1, 2,
                 },
-                new SpriteSheet(filename)
+                new Texture(filename)
         );
     }
 
@@ -146,7 +176,10 @@ public class Mesh {
         // Activate firs texture bank
         glActiveTexture(GL_TEXTURE0);
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, spriteSheet.getTextures()[currentFrame].getId());
+        if(hasSpriteSheet)
+            glBindTexture(GL_TEXTURE_2D, spriteSheet.getTextures()[currentFrame].getId());
+        else
+            glBindTexture(GL_TEXTURE_2D, texture.getId());
 
         // Draw the mesh
         glBindVertexArray(getVaoId());
@@ -167,8 +200,12 @@ public class Mesh {
         }
 
         // Delete the texture
-        for(Texture t : spriteSheet.getTextures()) {
-            t.cleanup();
+        if(hasSpriteSheet) {
+            for(Texture t : spriteSheet.getTextures()) {
+                t.cleanup();
+            }
+        } else {
+            texture.cleanup();
         }
 
         // Delete the VAO

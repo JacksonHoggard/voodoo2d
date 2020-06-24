@@ -2,6 +2,7 @@ package com.github.crembluray.voodoo2d.engine.mapping;
 
 public class TileSet {
     private int firstGID, lastGID, tileWidth, tileHeight, imageWidth, imageHeight, tileAmountWidth;
+    private int[][] GIDs;
     private String name, source;
 
     public TileSet(int firstGID, String name, int tileWidth, int tileHeight, String source, int imageWidth, int imageHeight) {
@@ -12,6 +13,14 @@ public class TileSet {
         this.source = source;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
+        GIDs = new int[imageWidth / tileWidth][imageHeight / tileHeight];
+        int counter = 0;
+        for(int y = 0; y < imageHeight / tileHeight; y++) {
+            for(int x = 0; x < imageWidth / tileWidth; x++) {
+                GIDs[x][y] = firstGID + counter;
+                counter++;
+            }
+        }
         tileAmountWidth = (int)Math.floor(imageWidth / tileWidth);
         lastGID = (int)(tileAmountWidth * Math.floor(imageHeight / tileHeight));
     }
@@ -86,5 +95,9 @@ public class TileSet {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public int[][] getGIDs() {
+        return GIDs;
     }
 }

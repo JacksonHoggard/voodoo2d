@@ -24,8 +24,6 @@ public class GameEngine implements Runnable {
     private double lastFps;
 
     private int fps;
-
-    private MapHost map = new MapHost("src\\main\\resources\\maps\\example\\example.tmx");
     
     public GameEngine(String windowTitle, int width, int height, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
         window = new Window(windowTitle, width, height, vSync, antiAliasing);
@@ -55,7 +53,6 @@ public class GameEngine implements Runnable {
     protected void init() throws Exception {
         window.init();
         timer.init();
-        map.init();
         mouseInput.init(window);
         gameLogic.init(window);
         lastFps = timer.getTime();

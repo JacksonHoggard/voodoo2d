@@ -16,6 +16,7 @@ public class MapHost {
     private NodeList rawTileData;
     private NodeList rawImageData;
     private ArrayList<TileSet> tileSets = new ArrayList<TileSet>();
+    private static Map map;
 
     public MapHost(String tmxTarget){
         this.tmxTarget = tmxTarget;
@@ -47,11 +48,23 @@ public class MapHost {
                 int imageHeight = Integer.parseInt(img.getNamedItem("height").getTextContent());
                 tileSets.add(new TileSet(firstGid, name, tileWidth, tileHeight, source, imageWidth, imageHeight));
             }
+            // Create and load the map
+            map = new Map(tileSets, tmxTarget);
         } catch (final Exception e) {
             e.printStackTrace();
         }
     }
     public ArrayList<TileSet> getTileSets(){
         return tileSets;
+    }
+
+    public void setScale(float scale) {
+        for(Layer layer : map.getLayers()) {
+            layer.asGameObject().setScale(scale);
+        }
+    }
+
+    public Map getMap() {
+        return map;
     }
 }
