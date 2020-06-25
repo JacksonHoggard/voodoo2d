@@ -20,7 +20,6 @@ public class AnimationManager {
     public void playAnimations(double lastTime) {
         lastTime /= 1e7;
         elapsedTime += lastTime;
-        System.out.println(elapsedTime);
         if(elapsedTime >= 0.01d) {
             elapsedTime = 0;
             for(Animation a : animations) a.reset();
