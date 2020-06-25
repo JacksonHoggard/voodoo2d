@@ -25,8 +25,8 @@ if(window.isKeyPressed(GLFW_KEY_D)) { // Checks if "D" key is down
 ##### COLLISION
 ```java
 aabb = new AABB(); // Make a new collision box
-aabb.setMin(0.0f, 0.0f); // Set the bottom left point of the boundary
-aabb.setMax(1.0f, 0.175f); // Set the top right point of the boundary
+aabb.setCenter(0.5f, 0.0875f); // Set the center point of the boundary
+aabb.setDistance(0.5f, 0.0875f); // Set the distance from the center to the edges of the boundary
 ```
 
 ### CONTRIBUTING
