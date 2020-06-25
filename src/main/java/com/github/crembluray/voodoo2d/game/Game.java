@@ -54,10 +54,10 @@ public class Game implements IGameLogic {
         gameObject.setScale(0.2f);
         gameObject1.getMesh().setCurrentFrame(1);
         gameObject1.setPosition(0, -1.5f);
-        Animation runDown = new Animation(gameObject, 0, 3, 3);
-        Animation runLeft = new Animation(gameObject, 4, 7, 3);
-        Animation runRight = new Animation(gameObject, 8, 11, 3);
-        Animation runUp = new Animation(gameObject, 12, 15, 3);
+        Animation runDown = new Animation(gameObject, 0, 3, 6);
+        Animation runLeft = new Animation(gameObject, 4, 7, 6);
+        Animation runRight = new Animation(gameObject, 8, 11, 6);
+        Animation runUp = new Animation(gameObject, 12, 15, 6);
         animations = new Animation[]{runDown, runLeft, runRight, runUp};
         gameObjects = new GameObject[] {
                 mapBack,
