@@ -4,9 +4,22 @@
 
 # Voodoo 2D
 A lightweight engine to easily build complex cross-platform 2D games in Java.
+
+[![Build Status](https://img.shields.io/travis/crembluray/voodoo2d/master?style=flat-square)](https://travis-ci.com/crembluray/voodoo2d)
+[![MIT License](https://img.shields.io/github/license/crembluray/voodoo2d?style=flat-square)](https://github.com/crembluray/voodoo2d/blob/master/LICENSE)
+
 <p align="center">
     <img width="800" height="600" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/canvas.gif">
 </p>
+
+## Main Features
+
+* Basic Game Infrastructure (GameLoop, Configuration, ...)
+* 2D Render Engine (GUI Components, Spritesheet Animations, Ambient Lighting, Particle System, ...)
+* 2D Sound Engine (support for .ogg)
+* 2D Physics Engine
+* Support for Tile Maps in .tmx format (e.g. made with [Tiled Editor](http://www.mapeditor.org/))
+* Player input via Keyboard/Mouse
 
 Code:
 ```java
@@ -29,6 +42,15 @@ aabb.setCenter(0.5f, 0.0875f); // Set the center point of the boundary
 aabb.setDistance(0.5f, 0.0875f); // Set the distance from the center to the edges of the boundary
 ```
 
+### Maven Dependency
+```xml
+<dependency>
+  <groupId>com.github.crembluray</groupId>
+  <artifactId>voodoo2d</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
 ### CONTRIBUTING
 If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/CremBluRay/voodoo2d/blob/master/CONTRIBUTING.md) or read the [wiki page](https://github.com/CremBluRay/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
 
@@ -48,9 +70,6 @@ If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://
 * 1.0-SNAPSHOT (Development Version)
 
 ### Areas for improvements / involvement
-* A tilemap system
-* Anti aliasing
-* Audio
 * GUI
 * Particle System
 * Scenes

@@ -20,13 +20,13 @@ public class AnimationManager {
     public void playAnimations(double lastTime) {
         lastTime /= 1e7;
         elapsedTime += lastTime;
-        if(elapsedTime >= 0.01d) {
+        if(elapsedTime >= 1.0d) {
             elapsedTime = 0;
             for(Animation a : animations) a.reset();
         }
         for(int i = 0; i < animations.size(); i++) {
             if(animations.get(i).isPlaying())
-                if(elapsedTime > (0.01d / animations.get(i).getRate()) * animations.get(i).getTimesRun()) {
+                if(elapsedTime > (1.0d / animations.get(i).getRate()) * animations.get(i).getTimesRun()) {
                         for(int j = 0; j < animations.size(); j++)
                             if(i != j) {
                                 if(animations.get(i).getParent() == animations.get(j).getParent())
@@ -35,7 +35,7 @@ public class AnimationManager {
                 animations.get(i).run();
             }
         }
-        if(elapsedTime >= 0.01d) {
+        if(elapsedTime >= 1.0d) {
             elapsedTime = 0;
             for(Animation a : animations) a.reset();
         }
