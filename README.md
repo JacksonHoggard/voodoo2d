@@ -47,7 +47,7 @@ aabb.setDistance(0.5f, 0.0875f); // Set the distance from the center to the edge
 <dependency>
   <groupId>com.github.crembluray</groupId>
   <artifactId>voodoo2d</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-DEVBUILD</version>
 </dependency>
 ```
 
@@ -67,7 +67,7 @@ If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://
 * Open up an issue! Someone will get to it as soon as possible.
 
 ### Current Version
-* 1.0-SNAPSHOT (Development Version)
+* 1.0-DEVBUILD (Development Version)
 
 ### Areas for improvements / involvement
 * GUI
