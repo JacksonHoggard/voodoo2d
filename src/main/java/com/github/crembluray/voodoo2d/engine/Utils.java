@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
@@ -23,6 +24,15 @@ public class Utils {
             ImageIO.write(image, type, out);
             return out.toByteArray();
         }
+    }
+
+    public static float[] listToArray(List<Float> list) {
+        int size = list != null ? list.size() : 0;
+        float[] floatArr = new float[size];
+        for (int i = 0; i < size; i++) {
+            floatArr[i] = list.get(i);
+        }
+        return floatArr;
     }
 
 

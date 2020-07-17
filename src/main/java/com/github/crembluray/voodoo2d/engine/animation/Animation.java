@@ -2,6 +2,8 @@ package com.github.crembluray.voodoo2d.engine.animation;
 
 import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 
+import static com.github.crembluray.voodoo2d.engine.animation.AnimationManager.elapsedTime;
+
 public class Animation {
 
     private final int[] frames;
@@ -12,9 +14,7 @@ public class Animation {
 
     private final GameObject parent;
 
-    private int rate;
-
-    private int timesRun;
+    private double rate;
 
     private boolean play;
 
@@ -23,22 +23,20 @@ public class Animation {
         this.firstFrame = firstFrame;
         this.lastFrame = lastFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
-        this.rate = rate;
-        timesRun = 0;
-        AnimationManager.addAnimation(this);
+        this.rate = 1.0/(double)rate;
     }
 
     protected void run() {
-        currentFrame++;
-        if(currentFrame == frames.length) {
-            currentFrame = 0;
+        if(elapsedTime >= rate) {
+            elapsedTime -= rate;
+            currentFrame++;
         }
+        if(currentFrame >= frames.length) currentFrame = 0;
         parent.getMesh().setCurrentFrame(currentFrame + firstFrame);
-        timesRun++;
     }
 
     public void play() {
-        if(!play) AnimationManager.elapsedTime = 0;
+        if(!play) elapsedTime = 0;
         play = true;
     }
 
@@ -49,7 +47,6 @@ public class Animation {
     public void stop() {
         play = false;
         parent.getMesh().setCurrentFrame(firstFrame);
-        timesRun = 0;
     }
 
     public int getCurrentFrame() {
@@ -64,20 +61,12 @@ public class Animation {
         return play;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
     public void setRate(int rate) {
         this.rate = rate;
-    }
-
-    protected int getTimesRun() {
-        return timesRun;
-    }
-
-    protected void reset() {
-        timesRun = 0;
     }
 
     protected GameObject getParent() {

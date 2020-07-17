@@ -17,26 +17,9 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
 
     private final int id;
+    private int width, height;
 
     public Texture(String fileName) throws Exception {
-        this(loadTexture(fileName));
-    }
-
-    public Texture(int id) {
-        this.id = id;
-    }
-
-    public void bind() {
-        glBindTexture(GL_TEXTURE_2D, id);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    private static int loadTexture(String fileName) throws Exception {
-        int width;
-        int height;
         ByteBuffer buf;
         // Load Texture file
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -55,9 +38,9 @@ public class Texture {
         }
 
         // Create a new OpenGL texture
-        int textureId = glGenTextures();
+        id = glGenTextures();
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        glBindTexture(GL_TEXTURE_2D, id);
 
         // Tell OpenGL how to unpack the RGBA bytes. Each component is 1 byte size
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -72,8 +55,20 @@ public class Texture {
         glGenerateMipmap(GL_TEXTURE_2D);
 
         stbi_image_free(buf);
+    }
 
-        return textureId;
+    public Texture(int id) {
+        this.id = id;
+        width = glGetTexParameteri(id, GL_TEXTURE_WIDTH);
+        height = glGetTexParameteri(id, GL_TEXTURE_HEIGHT);
+    }
+
+    public void bind() {
+        glBindTexture(GL_TEXTURE_2D, id);
+    }
+
+    public int getId() {
+        return id;
     }
 
     protected static Texture[] loadTexture(BufferedImage[] sprites) throws Exception {
@@ -86,13 +81,21 @@ public class Texture {
 
             ImageIO.write(sprites[i], "PNG", new File("temp/tmpFile" + i + ".png"));
 
-            temp[i] = new Texture(loadTexture("temp/tmpFile" + i + ".png"));
+            temp[i] = new Texture("temp/tmpFile" + i + ".png");
 
             File file = new File("temp/tmpFile" + i + ".png");
             file.delete();
         }
         tempDir.delete();
         return temp;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public void cleanup() {

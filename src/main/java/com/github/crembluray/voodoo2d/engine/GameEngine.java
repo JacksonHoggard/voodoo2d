@@ -55,7 +55,7 @@ public class GameEngine implements Runnable {
         timer.init();
         mouseInput.init(window);
         gameLogic.init(window);
-        lastFps = timer.getTime();
+        lastFps = Timer.getTime();
         fps = 0;
     }
 
@@ -91,7 +91,7 @@ public class GameEngine implements Runnable {
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
-        while (timer.getTime() < endTime) {
+        while (Timer.getTime() < endTime) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException ie) {
@@ -105,7 +105,7 @@ public class GameEngine implements Runnable {
     }
 
     protected void update(float interval) {
-        animationManager.playAnimations(timer.getTime());
+        animationManager.playAnimations();
         gameLogic.update(interval, mouseInput);
     }
 

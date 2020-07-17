@@ -8,7 +8,7 @@ public class Timer {
         lastLoopTime = getTime();
     }
 
-    public double getTime() {
+    public static double getTime() {
         return System.nanoTime() / 1000_000_000.0;
     }
 

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 public class GameObject {
 
-    private final Mesh mesh;
+    private static final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+
+    private Mesh mesh;
     
     private final Vector2f position;
     
@@ -17,14 +19,22 @@ public class GameObject {
 
     private final Vector3f rotation;
 
-    private ArrayList<Animation> animations;
+    private Animation animation;
 
-    public GameObject(Mesh mesh) {
-        this.mesh = mesh;
-        animations = new ArrayList<Animation>();
+    public GameObject() {
         position = new Vector2f();
         scale = 1;
         rotation = new Vector3f();
+        gameObjects.add(this);
+    }
+
+    public GameObject(Mesh mesh) {
+        this.mesh = mesh;
+        animation = new Animation(this, 0, 0, 0);
+        position = new Vector2f();
+        scale = 1;
+        rotation = new Vector3f();
+        gameObjects.add(this);
     }
 
     public Vector2f getPosition() {
@@ -58,11 +68,19 @@ public class GameObject {
         return mesh;
     }
 
-    public ArrayList<Animation> getAnimations() {
-        return animations;
+    protected void setMesh(Mesh mesh) {
+        this.mesh = mesh;
     }
 
-    public void setAnimations(ArrayList<Animation> animations) {
-        this.animations = animations;
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+    }
+
+    public static ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
     }
 }

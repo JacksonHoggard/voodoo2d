@@ -1,44 +1,34 @@
 package com.github.crembluray.voodoo2d.engine.animation;
 
-import java.util.ArrayList;
+import com.github.crembluray.voodoo2d.engine.Timer;
+import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
+import com.github.crembluray.voodoo2d.game.Game;
 
 public class AnimationManager {
 
-    private static ArrayList<Animation> animations;
+    protected static double currentTime;
 
     protected static double elapsedTime;
 
+    protected static double lastTime;
+
     public AnimationManager() {
-        animations = new ArrayList<Animation>();
         elapsedTime = 0;
+        currentTime = 0;
+        lastTime = Timer.getTime();
     }
 
-    public static void addAnimation(Animation animation) {
-        animations.add(animation);
-    }
+    public void playAnimations() {
+        currentTime = Timer.getTime();
+        elapsedTime += currentTime - lastTime;
 
-    public void playAnimations(double lastTime) {
-        lastTime /= 1e7;
-        elapsedTime += lastTime;
-        if(elapsedTime >= 1.0d) {
-            elapsedTime = 0;
-            for(Animation a : animations) a.reset();
-        }
-        for(int i = 0; i < animations.size(); i++) {
-            if(animations.get(i).isPlaying())
-                if(elapsedTime > (1.0d / animations.get(i).getRate()) * animations.get(i).getTimesRun()) {
-                        for(int j = 0; j < animations.size(); j++)
-                            if(i != j) {
-                                if(animations.get(i).getParent() == animations.get(j).getParent())
-                                    animations.get(j).stop();
-                            }
-                animations.get(i).run();
+        for (GameObject g : GameObject.getGameObjects()) {
+            if(g.getAnimation().isPlaying()) {
+                g.getAnimation().run();
             }
         }
-        if(elapsedTime >= 1.0d) {
-            elapsedTime = 0;
-            for(Animation a : animations) a.reset();
-        }
+
+        lastTime = currentTime;
     }
 
 }

@@ -23,6 +23,8 @@ public class Game implements IGameLogic {
 
     private GameObject[] gameObjects;
 
+    private GameObject player;
+
     private Animation[] animations;
 
     private AudioSource audioSource;
@@ -46,23 +48,23 @@ public class Game implements IGameLogic {
         Mesh mesh = Mesh.loadMesh("textures/player.png", 64);
         Mesh mesh1 = Mesh.loadMesh("textures/sheet1.png", 32);
         GameObject gameObject1 = new GameObject(mesh1);
-        GameObject gameObject = new GameObject(mesh);
+        player = new GameObject(mesh);
         GameObject mapBack = map.getMap().getLayers()[0].asGameObject();
         GameObject mapFront = map.getMap().getLayers()[1].asGameObject();
         GameObject mapTop = map.getMap().getLayers()[2].asGameObject();
         map.setScale(3.0f);
-        gameObject.setScale(0.2f);
+        player.setScale(0.2f);
         gameObject1.getMesh().setCurrentFrame(1);
         gameObject1.setPosition(0, -1.5f);
-        Animation runDown = new Animation(gameObject, 0, 3, 6);
-        Animation runLeft = new Animation(gameObject, 4, 7, 6);
-        Animation runRight = new Animation(gameObject, 8, 11, 6);
-        Animation runUp = new Animation(gameObject, 12, 15, 6);
+        Animation runDown = new Animation(player, 0, 3, 6);
+        Animation runLeft = new Animation(player, 4, 7, 6);
+        Animation runRight = new Animation(player, 8, 11, 6);
+        Animation runUp = new Animation(player, 12, 15, 6);
         animations = new Animation[]{runDown, runLeft, runRight, runUp};
         gameObjects = new GameObject[] {
                 mapBack,
                 mapFront,
-                gameObject,
+                player,
                 mapTop
         };
     }
@@ -71,18 +73,22 @@ public class Game implements IGameLogic {
     public void input(Window window, MouseInput mouseInput) {
         cameraInc.set(0, 0);
         if(window.isKeyPressed(GLFW_KEY_S)) {
+            player.setAnimation(animations[0]);
             animations[0].play();
             cameraInc.y = 1;
         }
         if(window.isKeyPressed(GLFW_KEY_A)) {
+            player.setAnimation(animations[1]);
             animations[1].play();
             cameraInc.x = 1;
         }
         if(window.isKeyPressed(GLFW_KEY_D)) {
+            player.setAnimation(animations[2]);
             animations[2].play();
             cameraInc.x = -1;
         }
         if(window.isKeyPressed(GLFW_KEY_W)) {
+            player.setAnimation(animations[3]);
             animations[3].play();
             cameraInc.y = -1;
         }
