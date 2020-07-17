@@ -37,6 +37,7 @@ public class Animation {
 
     public void play() {
         if(!play) elapsedTime = 0;
+        parent.setAnimation(this);
         play = true;
     }
 
@@ -45,8 +46,9 @@ public class Animation {
     }
 
     public void stop() {
+        if(play) parent.getMesh().setCurrentFrame(firstFrame);
         play = false;
-        parent.getMesh().setCurrentFrame(firstFrame);
+        setCurrentFrame(firstFrame);
     }
 
     public int getCurrentFrame() {
