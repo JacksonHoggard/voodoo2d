@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GameObject {
 
-    private static final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    private static final ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     private Mesh mesh;
     
@@ -25,6 +25,7 @@ public class GameObject {
         position = new Vector2f();
         scale = 1;
         rotation = new Vector3f();
+        animation = new Animation(this, 0, 0, 0);
         gameObjects.add(this);
     }
 

@@ -19,13 +19,11 @@ public class Game implements IGameLogic {
 
     private final Renderer renderer;
 
-    private MapHost map = new MapHost("src\\main\\resources\\maps\\example.tmx");
+    private MapTree mapTree;
 
     private GameObject[] gameObjects;
 
-    private Animation[] animations;
-
-    private AudioSource audioSource;
+    private Player player;
 
     public static final float PLAYER_POS_STEP = 0.05f;
 
@@ -33,81 +31,42 @@ public class Game implements IGameLogic {
         renderer = new Renderer();
         camera = new Camera();
         cameraInc = new Vector2f();
-        animations = new Animation[0];
+        player = new Player();
+        mapTree = new MapTree();
     }
 
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
-        map.init();
-        AudioManager.init();
-        audioSource = new AudioSource("audio/bounce.ogg");
-        audioSource.setLooping(true);
-        Mesh mesh = Mesh.loadMesh("textures/player.png", 64);
-        Mesh mesh1 = Mesh.loadMesh("textures/sheet1.png", 32);
-        GameObject gameObject1 = new GameObject(mesh1);
-        GameObject player = new GameObject(mesh);
-        GameObject mapBack = map.getMap().getLayers()[0].asGameObject();
-        GameObject mapFront = map.getMap().getLayers()[1].asGameObject();
-        GameObject mapTop = map.getMap().getLayers()[2].asGameObject();
-        map.setScale(3.0f);
-        player.setScale(0.2f);
-        gameObject1.getMesh().setCurrentFrame(1);
-        gameObject1.setPosition(0, -1.5f);
-        Animation runDown = new Animation(player, 0, 3, 6);
-        Animation runLeft = new Animation(player, 4, 7, 6);
-        Animation runRight = new Animation(player, 8, 11, 6);
-        Animation runUp = new Animation(player, 12, 15, 6);
-        animations = new Animation[]{runDown, runLeft, runRight, runUp};
+        player.init();
+        mapTree.init();
         gameObjects = new GameObject[] {
-                mapBack,
-                mapFront,
+                mapTree.getMapBack(),
+                mapTree.getMapFront(),
                 player,
-                mapTop
+                mapTree.getMapTop()
         };
     }
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
         cameraInc.set(0, 0);
-        if(window.isKeyPressed(GLFW_KEY_S)) {
-            animations[0].play();
+        player.input(window, mouseInput);
+        if(window.isKeyPressed(GLFW_KEY_S))
             cameraInc.y = 1;
-        } else {
-            animations[0].stop();
-        }
-        if(window.isKeyPressed(GLFW_KEY_A)) {
-            animations[1].play();
+        if(window.isKeyPressed(GLFW_KEY_A))
             cameraInc.x = 1;
-        } else {
-            animations[1].stop();
-        }
-        if(window.isKeyPressed(GLFW_KEY_D)) {
-            animations[2].play();
+        if(window.isKeyPressed(GLFW_KEY_D))
             cameraInc.x = -1;
-        } else {
-            animations[2].stop();
-        }
-        if(window.isKeyPressed(GLFW_KEY_W)) {
-            animations[3].play();
+        if(window.isKeyPressed(GLFW_KEY_W))
             cameraInc.y = -1;
-        } else {
-            animations[3].stop();
-        }
-        if(window.isKeyPressed(GLFW_KEY_SPACE)) {
-            if(audioSource.isPlaying()) {
-                audioSource.stop();
-            } else {
-                audioSource.play();
-            }
-        }
     }
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
         // Update camera position
-        gameObjects[2].getPosition().x -= cameraInc.x * PLAYER_POS_STEP;
-        gameObjects[2].getPosition().y -= cameraInc.y * PLAYER_POS_STEP;
+        player.getPosition().x -= cameraInc.x * PLAYER_POS_STEP;
+        player.getPosition().y -= cameraInc.y * PLAYER_POS_STEP;
     }
 
     @Override
@@ -121,7 +80,6 @@ public class Game implements IGameLogic {
         for (GameObject gameObject : gameObjects) {
             gameObject.getMesh().cleanUp();
         }
-        AudioManager.cleanup();
     }
 
 }

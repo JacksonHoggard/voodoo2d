@@ -1,8 +1,7 @@
 package com.github.crembluray.voodoo2d.engine.animation;
 
+import com.github.crembluray.voodoo2d.engine.Timer;
 import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
-
-import static com.github.crembluray.voodoo2d.engine.animation.AnimationManager.elapsedTime;
 
 public class Animation {
 
@@ -18,8 +17,17 @@ public class Animation {
 
     private boolean play;
 
+    private double currentTime;
+
+    private double elapsedTime;
+
+    private double lastTime;
+
     public Animation(GameObject parent, int firstFrame, int lastFrame, int rate) {
         this.parent = parent;
+        elapsedTime = 0;
+        currentTime = 0;
+        lastTime = Timer.getTime();
         this.firstFrame = firstFrame;
         this.lastFrame = lastFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
@@ -27,16 +35,25 @@ public class Animation {
     }
 
     protected void run() {
+        currentTime = Timer.getTime();
+        elapsedTime += currentTime - lastTime;
+
         if(elapsedTime >= rate) {
             elapsedTime -= rate;
             currentFrame++;
         }
         if(currentFrame >= frames.length) currentFrame = 0;
         parent.getMesh().setCurrentFrame(currentFrame + firstFrame);
+
+        lastTime = currentTime;
     }
 
     public void play() {
-        if(!play) elapsedTime = 0;
+        if(!play) {
+            elapsedTime = 0;
+            currentTime = 0;
+            lastTime = Timer.getTime();
+        }
         parent.setAnimation(this);
         play = true;
     }
