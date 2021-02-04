@@ -1,12 +1,8 @@
-<p align="center">
-    <img width="150" height="150" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/voodoo2d.png">
-</p>
-
 # Voodoo 2D
 A lightweight engine to easily build complex cross-platform 2D games in Java.
 
-[![Build Status](https://img.shields.io/travis/crembluray/voodoo2d/master?style=flat-square)](https://travis-ci.com/crembluray/voodoo2d)
-[![MIT License](https://img.shields.io/github/license/crembluray/voodoo2d?style=flat-square)](https://github.com/crembluray/voodoo2d/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/jacksonhoggard/voodoo2d/master?style=flat-square)](https://travis-ci.com/crembluray/voodoo2d)
+[![MIT License](https://img.shields.io/github/license/jacksonhoggard/voodoo2d?style=flat-square)](https://github.com/jacksonhoggard/voodoo2d/blob/master/LICENSE)
 
 <p align="center">
     <img width="800" height="600" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/canvas.gif">
