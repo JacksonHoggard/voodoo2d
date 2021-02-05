@@ -5,7 +5,7 @@ A lightweight engine to easily build complex cross-platform 2D games in Java.
 [![MIT License](https://img.shields.io/github/license/jacksonhoggard/voodoo2d?style=flat-square)](https://github.com/jacksonhoggard/voodoo2d/blob/master/LICENSE)
 
 <p align="center">
-    <img width="800" height="600" src="https://raw.githubusercontent.com/CremBluRay/CremBluRay.github.io/master/assets/images/demo/voodoo2d/canvas.gif">
+    <img width="800" height="600" src="https://raw.githubusercontent.com/JacksonHoggard/JacksonHoggard.github.io/main/images/voodoo2d-canvas.gif">
 </p>
 
 ## Main Features
