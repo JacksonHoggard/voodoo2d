@@ -4,8 +4,6 @@ import com.github.crembluray.voodoo2d.engine.gameObject.GameObject;
 import com.github.crembluray.voodoo2d.engine.mapping.MapHost;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class MapTree {
