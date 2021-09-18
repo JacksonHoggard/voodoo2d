@@ -35,7 +35,9 @@ public class Layer {
                             if (layerCoords[a][b] >= tileSet.getFirstGID())
                                 currentTileSet = tileSet;
                         }
-                        BufferedImage tileSet = ImageIO.read(new File("src\\main\\resources\\maps\\" + currentTileSet.getSource()));
+                        BufferedImage tileSet = ImageIO.read(new File("src" + File.separator + "main"
+                                + File.separator + "resources" + File.separator +
+                                "maps" + File.separator + currentTileSet.getSource()));
 
                         // Get subImage from tileset
                         BufferedImage subImage;
