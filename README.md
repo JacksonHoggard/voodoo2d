@@ -1,8 +1,8 @@
 # Voodoo 2D
 A lightweight engine to easily build complex cross-platform 2D games in Java.
 
-[![Build Status](https://img.shields.io/travis/jacksonhoggard/voodoo2d/master?style=flat-square)](https://travis-ci.com/crembluray/voodoo2d)
-[![MIT License](https://img.shields.io/github/license/jacksonhoggard/voodoo2d?style=flat-square)](https://github.com/jacksonhoggard/voodoo2d/blob/master/LICENSE)
+[![Build Status](https://app.travis-ci.com/JacksonHoggard/voodoo2d.svg?branch=master)](https://app.travis-ci.com/github/JacksonHoggard/voodoo2d)
+[![MIT License](https://img.shields.io/github/license/jacksonhoggard/voodoo2d)](https://github.com/JacksonHoggard/voodoo2d/blob/master/LICENSE.md)
 
 <p align="center">
     <img width="800" height="600" src="https://raw.githubusercontent.com/JacksonHoggard/JacksonHoggard.github.io/main/images/voodoo2d-canvas.gif">
@@ -42,14 +42,14 @@ aabb.setDistance(0.5f, 0.0875f); // Set the distance from the center to the edge
 
 ```xml
 <dependency>
-  <groupId>com.github.jacksonhoggardcom.github.jacksonhoggard</groupId>
+  <groupId>com.github.jacksonhoggard</groupId>
   <artifactId>voodoo2d</artifactId>
   <version>1.0-DEVBUILD</version>
 </dependency>
 ```
 
 ### CONTRIBUTING
-If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/CremBluRay/voodoo2d/blob/master/CONTRIBUTING.md) or read the [wiki page](https://github.com/CremBluRay/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
+If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://github.com/JacksonHoggard/voodoo2d/blob/master/CONTRIBUTING.md) or read the [wiki page](https://github.com/JacksonHoggard/voodoo2d/wiki/Cloning-Voodoo2D) on how to set up the project
 
 ### TROUBLESHOOTING
 **A game object is not drawing to the screen!**
@@ -71,3 +71,4 @@ If you'd like to make a contribution, please refer to [CONTRIBUTING.md](https://
 * Particle System
 * Scenes
 * Lighting options
+* Batched Rendering
