@@ -39,9 +39,10 @@ aabb.setDistance(0.5f, 0.0875f); // Set the distance from the center to the edge
 ```
 
 ### Maven Dependency
+
 ```xml
 <dependency>
-  <groupId>com.github.crembluray</groupId>
+  <groupId>com.github.jacksonhoggardcom.github.jacksonhoggard</groupId>
   <artifactId>voodoo2d</artifactId>
   <version>1.0-DEVBUILD</version>
 </dependency>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.crembluray</groupId>
+    <groupId>com.github.jacksonhoggard</groupId>
     <artifactId>voodoo2d</artifactId>
     <version>1.0-DEVBUILD</version>
 
@@ -19,7 +19,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/CremBluRay/voodoo2d</url>
+            <url>https://maven.pkg.github.com/JacksonHoggard/voodoo2d</url>
         </repository>
     </distributionManagement>
 
