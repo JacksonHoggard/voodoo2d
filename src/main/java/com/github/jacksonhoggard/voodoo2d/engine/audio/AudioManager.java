@@ -21,17 +21,19 @@ public class AudioManager {
     private static ArrayList<Integer> sources;
     private static ArrayList<Integer> buffers;
 
-    private static String defaultDeviceName;
     private static long device;
-    private static int[] attributes;
     private static long context;
 
-    private static ALCCapabilities alcCapabilities;
-    private static ALCapabilities alCapabilities;
+    
 
     public static void init() {
-        sources = new ArrayList<Integer>();
-        buffers = new ArrayList<Integer>();
+        String defaultDeviceName;
+        int[] attributes;
+        ALCCapabilities alcCapabilities;
+        ALCapabilities alCapabilities;
+
+        sources = new ArrayList<>();
+        buffers = new ArrayList<>();
         defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
         device = alcOpenDevice(defaultDeviceName);
         attributes = new int[]{0};
