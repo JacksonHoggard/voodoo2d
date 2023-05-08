@@ -4,6 +4,8 @@ import org.joml.Vector2f;
 import org.lwjgl.openal.*;
 import org.lwjgl.system.MemoryStack;
 
+import com.github.jacksonhoggard.voodoo2d.engine.exceptions.AudioNotLoadedException;
+
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
@@ -49,7 +51,7 @@ public class AudioManager {
         setListenerData(position.x, position.y);
     }
 
-    protected static int loadSound(String filename, int sourcePointer) throws Exception {
+    protected static int loadSound(String filename, int sourcePointer) throws AudioNotLoadedException {
         ShortBuffer rawAudioBuffer;
 
         int channels;
@@ -62,7 +64,7 @@ public class AudioManager {
 
             rawAudioBuffer = stb_vorbis_decode_filename(filename, channelsBuffer, sampleRateBuffer);
             if (rawAudioBuffer == null) {
-                throw new Exception("Audio file [" + filename  + "] not loaded");
+                throw new AudioNotLoadedException(filename);
             }
 
             //Retrieve the extra information that was stored in the buffers by the function
