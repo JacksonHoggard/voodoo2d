@@ -14,7 +14,12 @@ import static org.lwjgl.stb.STBVorbis.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.libc.LibCStdlib.*;
 
-public class AudioManager {
+public class AudioManager 
+{
+    private AudioManager()
+    {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static ArrayList<Integer> sources;
     private static ArrayList<Integer> buffers;
@@ -62,7 +67,7 @@ public class AudioManager {
 
             rawAudioBuffer = stb_vorbis_decode_filename(filename, channelsBuffer, sampleRateBuffer);
             if (rawAudioBuffer == null) {
-                throw new Exception("Audio file [" + filename  + "] not loaded");
+                throw new AudioFileException(filename);
             }
 
             //Retrieve the extra information that was stored in the buffers by the function
