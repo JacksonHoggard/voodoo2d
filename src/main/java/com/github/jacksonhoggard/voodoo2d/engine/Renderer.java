@@ -43,7 +43,7 @@ public class Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render(Window window, Camera camera, GameObject[] gameObjects) {
+    public void render(Window window, Camera camera, GameObject[] gameObjects, GameObject[] gui) {
         clear();
 
         if (window.isResized()) {
@@ -68,6 +68,15 @@ public class Renderer {
             shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
             // Render the mesh for this game item
             gameObject.getMesh().render();
+        }
+
+        // Render each gui element
+        for (GameObject guiElement : gui) {
+            // Set model view matrix for this item
+            Matrix4f modelViewMatrix = transformation.getModelViewMatrix(guiElement, viewMatrix);
+            shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
+            // Render the mesh for this game item
+            guiElement.getMesh().render();
         }
 
         shaderProgram.unbind();

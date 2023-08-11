@@ -24,8 +24,8 @@ public class GameEngine implements Runnable {
 
     private int fps;
     
-    public GameEngine(String windowTitle, int width, int height, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
-        window = new Window(windowTitle, width, height, vSync, antiAliasing);
+    public GameEngine(String windowTitle, int width, int height, boolean resizable, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
+        window = new Window(windowTitle, width, height, resizable, vSync, antiAliasing);
         this.gameLogic = gameLogic;
         this.windowTitle = windowTitle;
         timer = new Timer();
@@ -34,7 +34,7 @@ public class GameEngine implements Runnable {
     }
 
     public GameEngine(String windowTitle, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
-        this(windowTitle, 0, 0, vSync, antiAliasing, gameLogic);
+        this(windowTitle, 0, 0, true, vSync, antiAliasing, gameLogic);
     }
 
     @Override

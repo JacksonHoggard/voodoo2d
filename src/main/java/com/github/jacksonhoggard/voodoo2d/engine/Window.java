@@ -20,15 +20,18 @@ public class Window {
 
     private boolean vSync;
 
+    private boolean resizable;
+
     private boolean resized;
     
     private boolean antiAliasing ;
 
-	public Window(String title, int width, int height, boolean vSync, boolean antiAliasing) {
+	public Window(String title, int width, int height, boolean resizable, boolean vSync, boolean antiAliasing) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
+        this.resizable = resizable;
         this.resized = false;
         this.antiAliasing = antiAliasing;
     }
@@ -45,7 +48,7 @@ public class Window {
         // Configure GLFW
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        glfwWindowHint(GLFW_RESIZABLE, resizable ? 1 : 0);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

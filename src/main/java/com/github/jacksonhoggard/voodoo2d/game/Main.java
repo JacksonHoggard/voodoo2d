@@ -9,7 +9,7 @@ public class Main {
         try {
             boolean vSync = true, antiAliasing = true;
             IGameLogic gameLogic = new Game();
-            GameEngine gameEng = new GameEngine("V2D", vSync, antiAliasing, gameLogic);
+            GameEngine gameEng = new GameEngine("V2D", 1280, 720, false, vSync, antiAliasing, gameLogic);
             gameEng.run();
         } catch (Exception e) {
             e.printStackTrace();

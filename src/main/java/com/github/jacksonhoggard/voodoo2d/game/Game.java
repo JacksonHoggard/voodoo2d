@@ -16,18 +16,22 @@ public class Game implements IGameLogic {
 
     private final Player player;
 
+    private final GUI gui;
+
 
     public Game() {
         renderer = new Renderer();
         camera = new Camera();
         player = new Player();
         mapTree = new MapTree();
+        gui = new GUI();
     }
 
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
         player.init();
+        gui.init();
         mapTree.init();
         gameObjects = new GameObject[] {
                 mapTree.getMapBack(),
@@ -50,7 +54,7 @@ public class Game implements IGameLogic {
 
     @Override
     public void render(Window window) {
-        renderer.render(window, camera, gameObjects);
+        renderer.render(window, camera, gameObjects, gui.getGameObjects());
     }
 
     @Override
