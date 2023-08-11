@@ -7,7 +7,7 @@ public class Animation {
 
     private final int[] frames;
 
-    private final int firstFrame, lastFrame;
+    private final int firstFrame;
 
     private int currentFrame;
 
@@ -29,9 +29,8 @@ public class Animation {
         currentTime = 0;
         lastTime = Timer.getTime();
         this.firstFrame = firstFrame;
-        this.lastFrame = lastFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
-        this.rate = 1.0/(double)rate;
+        this.rate = 1.0/rate;
     }
 
     protected void run() {

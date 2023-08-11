@@ -2,30 +2,24 @@ package com.github.jacksonhoggard.voodoo2d.game;
 
 import com.github.jacksonhoggard.voodoo2d.engine.*;
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
-import org.joml.Vector2f;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class Game implements IGameLogic {
 
-    private final Vector2f cameraInc;
 
     private final Camera camera;
 
     private final Renderer renderer;
 
-    private MapTree mapTree;
+    private final MapTree mapTree;
 
     private GameObject[] gameObjects;
 
-    private Player player;
+    private final Player player;
 
-    public static final float PLAYER_POS_STEP = 0.05f;
 
     public Game() {
         renderer = new Renderer();
         camera = new Camera();
-        cameraInc = new Vector2f();
         player = new Player();
         mapTree = new MapTree();
     }
@@ -45,23 +39,13 @@ public class Game implements IGameLogic {
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
-        cameraInc.set(0, 0);
-        player.input(window, mouseInput);
-        if(window.isKeyPressed(GLFW_KEY_S))
-            cameraInc.y = 1;
-        if(window.isKeyPressed(GLFW_KEY_A))
-            cameraInc.x = 1;
-        if(window.isKeyPressed(GLFW_KEY_D))
-            cameraInc.x = -1;
-        if(window.isKeyPressed(GLFW_KEY_W))
-            cameraInc.y = -1;
+        player.input(window);
     }
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
         // Update camera position
-        player.getPosition().x -= cameraInc.x * PLAYER_POS_STEP;
-        player.getPosition().y -= cameraInc.y * PLAYER_POS_STEP;
+        player.update();
     }
 
     @Override
