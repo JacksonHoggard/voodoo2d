@@ -8,10 +8,10 @@ assignees: ''
 ---
 
 **Is your documentation update related to existing documentation? Please link it below**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+Link to the documentation to be updated.
 
 **Describe the documentation update**
 A clear and concise description of what you want to happen.
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+Add any other context or screenshots about the documentation update here.
