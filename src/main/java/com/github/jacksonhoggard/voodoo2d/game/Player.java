@@ -34,38 +34,29 @@ public class Player extends GameObject {
 
     public void input(Window window) {
         deltaPosition.set(0,0);
-        if(window.isKeyPressed(GLFW_KEY_S))
-        {
+
+        if(window.isKeyPressed(GLFW_KEY_S)) {
             deltaPosition.y = 1;
             animations[0].play();
-        }
-        else
-            animations[0].stop();
-        if(window.isKeyPressed(GLFW_KEY_A))
-        {
+        } else animations[0].stop();
+
+        if(window.isKeyPressed(GLFW_KEY_A)) {
             deltaPosition.x = 1;
             animations[1].play();
-        }
-        else
-            animations[1].stop();
-        if(window.isKeyPressed(GLFW_KEY_D))
-        {
+        } else animations[1].stop();
+
+        if(window.isKeyPressed(GLFW_KEY_D)) {
             deltaPosition.x = -1;
             animations[2].play();
-        }
-        else
-            animations[2].stop();
-        if(window.isKeyPressed(GLFW_KEY_W))
-        {
+        } else animations[2].stop();
+
+        if(window.isKeyPressed(GLFW_KEY_W)) {
             deltaPosition.y = -1;
             animations[3].play();
-        }
-        else
-            animations[3].stop();
+        } else animations[3].stop();
     }
 
-    public void update()
-    {
+    public void update() {
         getPosition().x -= deltaPosition.x * PLAYER_POS_STEP;
         getPosition().y -= deltaPosition.y * PLAYER_POS_STEP;
     }

@@ -5,36 +5,29 @@ import com.github.jacksonhoggard.voodoo2d.engine.animation.AnimationManager;
 public class GameEngine implements Runnable {
 
     public static final int TARGET_FPS = 75;
-
     public static final int TARGET_UPS = 30;
-
     private final Window window;
-
     private final Timer timer;
-
     private final MouseInput mouseInput;
-
     private final AnimationManager animationManager;
-
     private final IGameLogic gameLogic;
-
-    private final String windowTitle;
-
     private double lastFps;
-
     private int fps;
-    
-    public GameEngine(String windowTitle, int width, int height, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
-        window = new Window(windowTitle, width, height, vSync, antiAliasing);
+
+    /**
+     * Creates game using window.
+     *
+     * @param window Window object
+     * @param gameLogic Game logic object
+     * @throws Exception Exception
+     */
+    public GameEngine(Window window, IGameLogic gameLogic) throws Exception {
+        this.window = window;
         this.gameLogic = gameLogic;
-        this.windowTitle = windowTitle;
+
         timer = new Timer();
         mouseInput = new MouseInput();
         animationManager = new AnimationManager();
-    }
-
-    public GameEngine(String windowTitle, boolean vSync, boolean antiAliasing, IGameLogic gameLogic) throws Exception {
-        this(windowTitle, 0, 0, vSync, antiAliasing, gameLogic);
     }
 
     @Override
@@ -42,8 +35,8 @@ public class GameEngine implements Runnable {
         try {
             init();
             gameLoop();
-        } catch (Exception excp) {
-            excp.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         } finally {
             cleanup();
         }
@@ -111,7 +104,7 @@ public class GameEngine implements Runnable {
     protected void render() {
         if(timer.getLastLoopTime() - lastFps > 1) {
             lastFps = timer.getLastLoopTime();
-            window.setTitle(windowTitle + " - " + fps + " FPS");
+            window.setTitle(window.getTitle() + " - " + fps + " FPS");
             fps = 0;
         }
         fps++;
