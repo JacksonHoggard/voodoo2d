@@ -13,50 +13,43 @@ public class Window {
     private long windowHandle;
     private boolean antiAliasing;
     private boolean vSync;
-    private int fullscreen;
     private int width;
     private int height;
     private final String title;
     private boolean resized;
+    private final WINDOW_MODE windowMode;
+    public enum WINDOW_MODE {
+        WINDOWED,
+        BORDERLESS,
+        MAXIMIZED
+    }
 
 
     /**
-     * Creates window with specified size.
+     * Creates window with specified size and flags.
      *
      * @param title Title of game window
      * @param width Width of screen
      * @param height Height of screen
+     * @param windowMode Windowed 0 | Fullscreen windowed 1 | Fullscreen borderless 2
      * @param vSync Enable VSync
      * @param antiAliasing Enable Anti-Aliasing
      */
-	public Window(String title, int width, int height, boolean vSync, boolean antiAliasing) {
+	public Window(String title, int width, int height, int windowMode, boolean vSync, boolean antiAliasing) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
-        this.resized = false;
         this.antiAliasing = antiAliasing;
+        this.resized = false;
 
-        if ((width & height) == Integer.MAX_VALUE) {
-            this.fullscreen = 1;
-        } else if ((width & height) == Integer.MIN_VALUE) {
-            this.fullscreen = 2;
+        if (windowMode == 2) {
+            this.windowMode = WINDOW_MODE.BORDERLESS;
+        } else if (windowMode == 1) {
+            this.windowMode = WINDOW_MODE.MAXIMIZED;
         } else {
-            fullscreen = 0;
+            this.windowMode = WINDOW_MODE.WINDOWED;
         }
-    }
-
-    /**
-     * Creates fullscreen window.
-     *
-     * @param title Title of game window
-     * @param borderless If window is borderless or not
-     * @param vSync Enable VSync
-     * @param antiAliasing Enable Anti-Aliasing
-     */
-    public Window(String title, boolean borderless, boolean vSync, boolean antiAliasing) {
-        this(title, borderless ? Integer.MAX_VALUE : Integer.MIN_VALUE,
-                borderless ? Integer.MAX_VALUE : Integer.MIN_VALUE, vSync, antiAliasing);
     }
 
     /** Initializes screen for game. */
@@ -88,19 +81,18 @@ public class Window {
 
         // TODO FIX STRETCHING IN BORDERLESS MODE
         // Create window
-        if (fullscreen == 1) { // Create borderless fullscreen window
-            windowHandle = glfwCreateWindow(scrW, scrH, title, glfwGetPrimaryMonitor(), NULL);
+        if (windowMode == WINDOW_MODE.BORDERLESS) { // Create borderless fullscreen window
+            windowHandle = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);
             glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
             glfwMaximizeWindow(windowHandle);
-        } else if (fullscreen == 2) { // Create fullscreen window
+        } else if (windowMode == WINDOW_MODE.MAXIMIZED) { // Create fullscreen window
             windowHandle = glfwCreateWindow(scrW/2, scrH/2, title, NULL, NULL);
             glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
             glfwMaximizeWindow(windowHandle);
-        }
-        else { // Create window with specified size
+        } else { // Create window with specified size
             // Center the window on monitor
             windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
-            glfwSetWindowPos(windowHandle,(vidMode.width() - width) / 2,(vidMode.height() - height) / 2);
+            glfwSetWindowPos(windowHandle,(scrW - width) / 2,(scrH - height) / 2);
         }
 
         // Updates game when window is resized
@@ -125,8 +117,6 @@ public class Window {
         if (hasAntiAliasing())
             glfwWindowHint(GLFW_SAMPLES, 4);
 
-        // Set clear color and make window visible
-        setClearColor(0.0f,0.0f,0.0f,1.0f);
         glfwShowWindow(windowHandle);
 
         GL.createCapabilities();
@@ -134,6 +124,8 @@ public class Window {
         // Support for transparencies
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        setClearColor(0.0f,0.0f,0.0f,1.0f);
     }
 
 
