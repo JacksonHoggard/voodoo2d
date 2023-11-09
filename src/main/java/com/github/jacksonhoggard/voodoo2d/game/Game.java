@@ -5,15 +5,10 @@ import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
 
 public class Game implements IGameLogic {
 
-
     private final Camera camera;
-
     private final Renderer renderer;
-
     private final MapTree mapTree;
-
     private GameObject[] gameObjects;
-
     private final Player player;
 
 
