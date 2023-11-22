@@ -2,24 +2,20 @@ package com.github.jacksonhoggard.voodoo2d.engine;
 
 public class Timer {
 
-    private double lastLoopTime;
-    
-    public void init() {
-        lastLoopTime = getTime();
-    }
+    private static double lastLoopTime;
+    private static double deltaTime;
 
     public static double getTime() {
-        return System.nanoTime() / 1000_000_000.0;
+        return System.nanoTime() / 1000000000f; // Time in seconds
     }
 
-    public float getElapsedTime() {
+    public static void calculateDeltaTime() {
         double time = getTime();
-        float elapsedTime = (float) (time - lastLoopTime);
+        deltaTime = (time - lastLoopTime);
         lastLoopTime = time;
-        return elapsedTime;
     }
 
-    public double getLastLoopTime() {
-        return lastLoopTime;
+    public static float getDeltaTime() {
+        return (float)deltaTime;
     }
 }

@@ -11,7 +11,6 @@ public class Game implements IGameLogic {
     private GameObject[] gameObjects;
     private final Player player;
 
-
     public Game() {
         renderer = new Renderer();
         camera = new Camera();
@@ -38,8 +37,8 @@ public class Game implements IGameLogic {
     }
 
     @Override
-    public void update(float interval, MouseInput mouseInput) {
-        // Update camera position
+    public void update(MouseInput mouseInput) {
+        camera.setPosition(player.getPosition());
         player.update();
     }
 

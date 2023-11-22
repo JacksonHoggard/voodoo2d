@@ -10,15 +10,10 @@ import java.util.ArrayList;
 public class GameObject {
 
     private static final ArrayList<GameObject> gameObjects = new ArrayList<>();
-
     private Mesh mesh;
-    
     private final Vector2f position;
-    
     private float scale;
-
     private final Vector3f rotation;
-
     private Animation animation;
 
     public GameObject() {
