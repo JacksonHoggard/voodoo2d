@@ -69,7 +69,7 @@ public class Player extends GameObject {
         playerPos.x += ((deltaPosition.x * playerSpeed) * Timer.getDeltaTime());
         this.setPosition(playerPos.x, playerPos.y);
         if(!lastPosition.equals(playerPos) && deltaPosition.x == 0 && deltaPosition.y == 0) {
-            Log.game().info("Player pos: (x:" + playerPos.x + ", y: " + playerPos.y + ")");
+            Log.game().debug("Player pos: (x:" + playerPos.x + ", y: " + playerPos.y + ")");
             lastPosition.set(playerPos);
         }
     }
