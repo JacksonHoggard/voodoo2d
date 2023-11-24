@@ -3,8 +3,6 @@ package com.github.jacksonhoggard.voodoo2d.engine;
 import static org.lwjgl.glfw.GLFW.*;
 
 import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.APIUtil;
@@ -63,9 +61,7 @@ public class Window {
     public void init() {
         // Set up an error callback
         glfwSetErrorCallback((error, description) -> {
-            Map<Integer, String> ERROR_CODES = APIUtil.apiClassTokens((field, value) -> {
-                return 65536 < value && value < 131072;
-            }, (Map) null, new Class[]{org.lwjgl.glfw.GLFW.class});
+            Map<Integer, String> ERROR_CODES = APIUtil.apiClassTokens((field, value) -> 65536 < value && value < 131072, null, org.lwjgl.glfw.GLFW.class);
 
             String msg = getDescription(description);
             StackTraceElement[] stack = Thread.currentThread().getStackTrace();
@@ -76,7 +72,7 @@ public class Window {
                 stackTrace.append(stack[i].toString()).append('\n');
             }
 
-            Log.engine().error("[LWJGL] " + ERROR_CODES.get(error) + "error\n\tDescription : " + msg + "\n\tStacktrace  :\n" + stackTrace.toString());
+            Log.engine().error("[LWJGL] " + ERROR_CODES.get(error) + "error\n\tDescription : " + msg + "\n\tStacktrace  :\n" + stackTrace);
         });
 
         // Initialize GLFW
