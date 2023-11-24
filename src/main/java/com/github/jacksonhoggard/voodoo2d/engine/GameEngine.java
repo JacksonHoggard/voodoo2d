@@ -49,16 +49,16 @@ public class GameEngine implements Runnable {
         double time = 0;
         while (!window.windowShouldClose()) {
 
-            input();
-            update();
-            render();
-
             // Fixed update gets called 60 times a second
             time += Timer.getDeltaTime();
             if (time > 0.016) {
                 fixedUpdate();
                 time = 0;
             }
+
+            input();
+            update();
+            render();
         }
     }
 

@@ -6,7 +6,7 @@ public class Timer {
     private static double deltaTime;
 
     public static double getTime() {
-        return System.nanoTime() / 1000000000f; // Time in seconds
+        return System.nanoTime() / 1000000000D; // Time in seconds
     }
 
     public static void calculateDeltaTime() {
