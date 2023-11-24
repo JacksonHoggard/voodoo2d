@@ -5,7 +5,6 @@ import com.github.jacksonhoggard.voodoo2d.engine.mapping.MapHost;
 
 import java.io.File;
 
-
 public class MapTree {
 
     private MapHost map;
@@ -25,7 +24,6 @@ public class MapTree {
         mapFront = map.getMap().getLayers()[1].asGameObject();
         mapTop = map.getMap().getLayers()[2].asGameObject();
     }
-
 
     public GameObject getMapBack() {
         return mapBack;

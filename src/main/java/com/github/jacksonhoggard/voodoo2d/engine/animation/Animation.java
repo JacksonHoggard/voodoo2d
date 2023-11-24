@@ -1,57 +1,38 @@
 package com.github.jacksonhoggard.voodoo2d.engine.animation;
 
-import com.github.jacksonhoggard.voodoo2d.engine.Timer;
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
 
 public class Animation {
 
     private final int[] frames;
-
     private final int firstFrame;
-
     private int currentFrame;
-
     private final GameObject parent;
-
-    private double rate;
-
+    private float animSpeed;
     private boolean play;
-
-    private double currentTime;
-
     private double elapsedTime;
 
-    private double lastTime;
-
-    public Animation(GameObject parent, int firstFrame, int lastFrame, int rate) {
+    public Animation(GameObject parent, int firstFrame, int lastFrame, float rate) {
         this.parent = parent;
-        elapsedTime = 0;
-        currentTime = 0;
-        lastTime = Timer.getTime();
         this.firstFrame = firstFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
-        this.rate = 1.0/rate;
+        this.animSpeed = 10 / rate;
     }
 
-    protected void run() {
-        currentTime = Timer.getTime();
-        elapsedTime += currentTime - lastTime;
-
-        if(elapsedTime >= rate) {
-            elapsedTime -= rate;
+    protected void run() { // TODO Fix frame dependence (animation speed varies slightly depending on FPS)
+        elapsedTime++;
+        if(elapsedTime >= animSpeed) {
+            elapsedTime -= animSpeed;
             currentFrame++;
         }
+
         if(currentFrame >= frames.length) currentFrame = 0;
         parent.getMesh().setCurrentFrame(currentFrame + firstFrame);
-
-        lastTime = currentTime;
     }
 
     public void play() {
         if(!play) {
             elapsedTime = 0;
-            currentTime = 0;
-            lastTime = Timer.getTime();
         }
         parent.setAnimation(this);
         play = true;
@@ -79,12 +60,12 @@ public class Animation {
         return play;
     }
 
-    public double getRate() {
-        return rate;
+    public double getAnimSpeed() {
+        return animSpeed;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setAnimSpeed(int rate) {
+        this.animSpeed = rate;
     }
 
     protected GameObject getParent() {
