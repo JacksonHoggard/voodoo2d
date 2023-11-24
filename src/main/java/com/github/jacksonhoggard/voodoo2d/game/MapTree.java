@@ -1,6 +1,7 @@
 package com.github.jacksonhoggard.voodoo2d.game;
 
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 import com.github.jacksonhoggard.voodoo2d.engine.mapping.MapHost;
 
 import java.io.File;
@@ -18,6 +19,7 @@ public class MapTree {
     }
 
     public void init() {
+        Log.game().info("Loading tree map");
         map.init();
         map.setScale(3.0f);
         mapBack = map.getMap().getLayers()[0].asGameObject();

@@ -2,6 +2,7 @@ package com.github.jacksonhoggard.voodoo2d.engine.mapping;
 
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
 import com.github.jacksonhoggard.voodoo2d.engine.graphic.Mesh;
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -57,7 +58,7 @@ public class Layer {
             layer = new GameObject(Mesh.loadMesh("layer.png"));
             layerFile.delete();
         } catch (final Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
     }
 

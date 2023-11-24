@@ -3,6 +3,7 @@ package com.github.jacksonhoggard.voodoo2d.game;
 import com.github.jacksonhoggard.voodoo2d.engine.GameEngine;
 import com.github.jacksonhoggard.voodoo2d.engine.IGameLogic;
 import com.github.jacksonhoggard.voodoo2d.engine.Window;
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 
 public class Main {
  
@@ -13,7 +14,7 @@ public class Main {
             GameEngine gameEng = new GameEngine(window, gameLogic);
             gameEng.run();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
             System.exit(-1);
         }
     }

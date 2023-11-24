@@ -1,5 +1,7 @@
 package com.github.jacksonhoggard.voodoo2d.engine.graphic;
 
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,7 +16,7 @@ public class SpriteSheet {
         try {
             img = ImageIO.read(new File(filename));
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
 
         int rows = img.getHeight() / size;
@@ -36,7 +38,7 @@ public class SpriteSheet {
         try {
             textures = Texture.loadTexture(sprites);
         } catch(Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
     }
 
@@ -45,7 +47,7 @@ public class SpriteSheet {
         try {
             img = ImageIO.read(new File(filename));
         } catch(IOException e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
 
         int rows = img.getHeight();
@@ -67,7 +69,7 @@ public class SpriteSheet {
         try {
             textures = Texture.loadTexture(sprites);
         } catch(Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
     }
 

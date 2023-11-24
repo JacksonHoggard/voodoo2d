@@ -1,5 +1,6 @@
 package com.github.jacksonhoggard.voodoo2d.engine.mapping;
 
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -48,7 +49,7 @@ public class Map {
                 layerList[i] = new Layer(tmpMatrix, layerWidth, layerHeight, tileWidth, tileHeight, tileSets);
             }
         } catch (final Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
     }
 

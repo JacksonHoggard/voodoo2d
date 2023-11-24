@@ -2,6 +2,8 @@ package com.github.jacksonhoggard.voodoo2d.engine.graph;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 import org.joml.Matrix4f;
 import static org.lwjgl.opengl.GL20.*;
 import org.lwjgl.system.MemoryStack;
@@ -85,7 +87,7 @@ public class ShaderProgram {
 
         glValidateProgram(programId);
         if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0) {
-            System.err.println("Warning validating Shader code: " + glGetProgramInfoLog(programId, 1024));
+            Log.engine().warn("Warning validating Shader code: " + glGetProgramInfoLog(programId, 1024));
         }
     }
 

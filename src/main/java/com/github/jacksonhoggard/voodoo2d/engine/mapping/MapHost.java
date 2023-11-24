@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -51,7 +52,7 @@ public class MapHost {
             // Create and load the map
             map = new Map(tileSets, tmxTarget);
         } catch (final Exception e) {
-            e.printStackTrace();
+            Log.engine().error(e.getMessage());
         }
     }
     public ArrayList<TileSet> getTileSets(){

@@ -1,10 +1,17 @@
 package com.github.jacksonhoggard.voodoo2d.engine;
 
 import static org.lwjgl.glfw.GLFW.*;
+
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.system.APIUtil;
 
+import java.util.Map;
+
+import static org.lwjgl.glfw.GLFWErrorCallback.getDescription;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -54,8 +61,23 @@ public class Window {
 
     /** Initializes screen for game. */
     public void init() {
-        // Set up an error callback. The default implementation will print the error message in System.err.
-        GLFWErrorCallback.createPrint(System.err).set();
+        // Set up an error callback
+        glfwSetErrorCallback((error, description) -> {
+            Map<Integer, String> ERROR_CODES = APIUtil.apiClassTokens((field, value) -> {
+                return 65536 < value && value < 131072;
+            }, (Map) null, new Class[]{org.lwjgl.glfw.GLFW.class});
+
+            String msg = getDescription(description);
+            StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+
+            StringBuilder stackTrace = new StringBuilder();
+            for(int i = 4; i < stack.length; ++i) {
+                stackTrace.append("\t\t");
+                stackTrace.append(stack[i].toString()).append('\n');
+            }
+
+            Log.engine().error("[LWJGL] " + ERROR_CODES.get(error) + "error\n\tDescription : " + msg + "\n\tStacktrace  :\n" + stackTrace.toString());
+        });
 
         // Initialize GLFW
         if ( !glfwInit() )

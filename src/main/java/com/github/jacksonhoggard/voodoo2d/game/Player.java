@@ -5,6 +5,7 @@ import com.github.jacksonhoggard.voodoo2d.engine.Window;
 import com.github.jacksonhoggard.voodoo2d.engine.animation.Animation;
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
 import com.github.jacksonhoggard.voodoo2d.engine.graphic.Mesh;
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -13,6 +14,7 @@ public class Player extends GameObject {
 
     private Animation[] animations;
     private Vector2f deltaPosition;
+    private Vector2f lastPosition;
     private Vector2f playerPos;
     private final float playerSpeed = 1f;
 
@@ -20,6 +22,7 @@ public class Player extends GameObject {
         super();
         animations = new Animation[0];
         deltaPosition = new Vector2f(0,0);
+        lastPosition = new Vector2f(0, 0);
         setScale(0.2f);
     }
 
@@ -65,5 +68,9 @@ public class Player extends GameObject {
         playerPos.y += ((deltaPosition.y * playerSpeed) * Timer.getDeltaTime());
         playerPos.x += ((deltaPosition.x * playerSpeed) * Timer.getDeltaTime());
         this.setPosition(playerPos.x, playerPos.y);
+        if(!lastPosition.equals(playerPos) && deltaPosition.x == 0 && deltaPosition.y == 0) {
+            Log.game().info("Player pos: (x:" + playerPos.x + ", y: " + playerPos.y + ")");
+            lastPosition.set(playerPos);
+        }
     }
 }

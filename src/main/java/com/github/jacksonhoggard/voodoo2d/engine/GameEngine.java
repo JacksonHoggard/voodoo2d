@@ -1,6 +1,7 @@
 package com.github.jacksonhoggard.voodoo2d.engine;
 
 import com.github.jacksonhoggard.voodoo2d.engine.animation.AnimationManager;
+import com.github.jacksonhoggard.voodoo2d.engine.log.Log;
 
 public class GameEngine implements Runnable {
 
@@ -16,12 +17,12 @@ public class GameEngine implements Runnable {
      *
      * @param window Window object
      * @param gameLogic Game logic object
-     * @throws Exception Exception
      */
-    public GameEngine(Window window, IGameLogic gameLogic) throws Exception {
+    public GameEngine(Window window, IGameLogic gameLogic) {
         this.window = window;
         this.gameLogic = gameLogic;
 
+        Log.init();
         mouseInput = new MouseInput();
         animationManager = new AnimationManager();
     }
@@ -32,13 +33,14 @@ public class GameEngine implements Runnable {
             init();
             gameLoop();
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Log.engine().error(exception.getMessage());
         } finally {
             cleanup();
         }
     }
 
     protected void init() throws Exception {
+        Log.engine().info("Starting");
         window.init();
         mouseInput.init(window);
         gameLogic.init(window);
@@ -61,6 +63,7 @@ public class GameEngine implements Runnable {
     }
 
     protected void cleanup() {
+        Log.engine().info("Cleaning up");
         gameLogic.cleanup();
     }
 
