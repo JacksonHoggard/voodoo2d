@@ -1,5 +1,6 @@
 package com.github.jacksonhoggard.voodoo2d.engine.animation;
 
+import com.github.jacksonhoggard.voodoo2d.engine.Timer;
 import com.github.jacksonhoggard.voodoo2d.engine.gameObject.GameObject;
 
 public class Animation {
@@ -8,22 +9,23 @@ public class Animation {
     private final int firstFrame;
     private int currentFrame;
     private final GameObject parent;
-    private float animSpeed;
+    private double animSpeed;
+    private double elapsed;
     private boolean play;
-    private double elapsedTime;
 
-    public Animation(GameObject parent, int firstFrame, int lastFrame, float rate) {
+    public Animation(GameObject parent, int firstFrame, int lastFrame, double rate) {
         this.parent = parent;
         this.firstFrame = firstFrame;
         frames = new int[(lastFrame - firstFrame) + 1];
-        this.animSpeed = 10 / rate;
+        this.animSpeed = 1 / rate;
     }
 
-    protected void run() { // TODO Fix frame dependence (animation speed varies slightly depending on FPS)
-        elapsedTime++;
-        if(elapsedTime >= animSpeed) {
-            elapsedTime -= animSpeed;
+    protected void run() {
+        elapsed += Timer.getDeltaTime();
+        while(elapsed >= animSpeed) {
+            elapsed -= animSpeed;
             currentFrame++;
+            if(elapsed < animSpeed) elapsed = 0;
         }
 
         if(currentFrame >= frames.length) currentFrame = 0;
@@ -32,7 +34,7 @@ public class Animation {
 
     public void play() {
         if(!play) {
-            elapsedTime = 0;
+            elapsed = 0;
         }
         parent.setAnimation(this);
         play = true;

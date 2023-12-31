@@ -51,13 +51,13 @@ public class GameEngine implements Runnable {
         double time = 0;
         while (!window.windowShouldClose()) {
             input();
+            update();
             // Fixed update gets called 60 times a second
             time += Timer.getDeltaTime();
             if (time > 0.016) {
                 fixedUpdate();
                 time = 0;
             }
-            update();
             render();
         }
     }
@@ -79,7 +79,6 @@ public class GameEngine implements Runnable {
         gameLogic.update(mouseInput);
     }
 
-    // TODO FIX DELTA TIME (Check Animation.java run())
     protected void fixedUpdate() {
         animationManager.playAnimations();
         gameLogic.fixedUpdate();

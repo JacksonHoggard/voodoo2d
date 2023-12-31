@@ -38,7 +38,18 @@ public class Game implements IGameLogic {
 
     @Override
     public void update(MouseInput mouseInput) {
-        camera.setPosition(player.getPosition());
+        if(player.getPosition().x >= camera.getPosition().x + 1.0F) {
+            camera.movePosition(0.75F * Timer.getDeltaTime(), 0);
+        }
+        if(player.getPosition().x <= camera.getPosition().x - 1.0F) {
+            camera.movePosition(-0.75F * Timer.getDeltaTime(), 0);
+        }
+        if(player.getPosition().y <= camera.getPosition().y - 1.0F) {
+            camera.movePosition(0, -0.75F * Timer.getDeltaTime());
+        }
+        if(player.getPosition().y >= camera.getPosition().y + 1.0F) {
+            camera.movePosition(0, 0.75F * Timer.getDeltaTime());
+        }
         player.update();
     }
 
