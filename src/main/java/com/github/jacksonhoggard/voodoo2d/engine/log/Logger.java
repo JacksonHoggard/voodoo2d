@@ -1,5 +1,7 @@
 package com.github.jacksonhoggard.voodoo2d.engine.log;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
@@ -15,6 +17,7 @@ public class Logger {
     private final String name;
     private int priority;
     private DateTimeFormatter dateTimeFormat;
+    private FileWriter logFile;
 
     public Logger(String name, int priority) {
         this.name = name;
@@ -53,11 +56,32 @@ public class Logger {
         log(ERR, msg);
     }
 
+    public void enableOutput() {
+        enableOutput("log.txt");
+    }
+
+    public void enableOutput(String path) {
+        try {
+            logFile = new FileWriter(path);
+        } catch (IOException e) {
+            log(ERR, e.getMessage());
+        }
+    }
+
     private void log(int msgPriority, String msg) {
         if(priority <= msgPriority) {
             String time = java.time.LocalTime.now().format(dateTimeFormat);
             String pStr = priorityToString(msgPriority);
-            System.out.println("\u001B[0m" + time + pStr + "(\u001B[1m" + name + "\u001B[0m): " + getColor(msgPriority) + msg + "\u001B[0m");
+            String logStr = "\u001B[0m" + time + pStr + "(\u001B[1m" + name + "\u001B[0m): " + getColor(msgPriority) + msg + "\u001B[0m";
+            System.out.println(logStr);
+            if(logFile != null) {
+                try {
+                    logFile.write(logStr + "\n");
+                } catch (IOException e) {
+                    logFile = null;
+                    log(ERR, e.getMessage());
+                }
+            }
         }
     }
 
@@ -94,5 +118,16 @@ public class Logger {
 
     public void setDateTimeFormat(DateTimeFormatter dateTimeFormat) {
         this.dateTimeFormat = dateTimeFormat;
+    }
+
+    public void cleanup() {
+        if(logFile != null) {
+            try {
+                logFile.close();
+            } catch (IOException e) {
+                logFile = null;
+                log(ERR, e.getMessage());
+            }
+        }
     }
 }
